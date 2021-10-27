@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:DECAPP.Resources"
+             xmlns:services="clr-namespace:DECAPP.Services"
+             x:Class="DECAPP.Views.Mud.CalcSpacerVolPage"
+             Title="{x:Static resources:AppResource.TitleCalcSpacerVol}"
+             x:Name="spacerVolumePage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="Style" Value="{DynamicResource labelStyle}" />
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="Style" Value="{DynamicResource editorStyle}" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Style" Value="{DynamicResource entryStyle}" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Style" Value="{StaticResource buttonStyle}" />
+            </Style>
+            <Style TargetType="Picker">
+                <Setter Property="Style" Value="{DynamicResource pickerStyle}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <StackLayout Spacing="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Background_Dark}, Light={StaticResource Background_Light}}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" >
+            <!--Header-->
+            <Grid x:Name="Header" ColumnSpacing="0" RowSpacing="0" BackgroundColor="#515C6B" HeightRequest="48" MinimumHeightRequest="48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="Vsp, m3" FontAttributes="Bold" TextColor="DarkOrange" Margin="8,12,4,12"
+                   VerticalOptions="Center" FontSize="16" />
+                <Label Grid.Column="1" Text="=" FontAttributes="Bold" TextColor="DarkOrange" Margin="4,12,4,12"
+                   VerticalOptions="Center" FontSize="16" />
+                <Label Grid.Column="2" x:Name="lbVsp" FontAttributes="Bold" TextColor="DarkOrange" Margin="4,12,4,12"
+                   VerticalOptions="Center" FontSize="16" />
+                <!-- SaveCommandBar -->
+                <StackLayout Grid.Column="3" x:Name="SaveCommandBar" Orientation="Horizontal" HorizontalOptions="End" Spacing="0">
+                    <Button Text="{StaticResource CancelIcon}" Released="OnCancel" />
+                    <Button Text="{StaticResource SaveIcon}" Released="OnSave" />
+                </StackLayout>
+            </Grid>
+
+            <!--Content-->
+            <ScrollView x:Name="Detail" VerticalOptions="FillAndExpand">
+                <Grid x:Name="FormulaContent" ColumnSpacing="0" RowSpacing="0" VerticalOptions="FillAndExpand" RowDefinitions="auto, *">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='500', Desktop='500', Phone='*'}" />
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='*', Desktop='*', Phone='0'}" />
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='500', Desktop='500', Phone='0'}" />
+                    </Grid.ColumnDefinitions>
+                    <!-- Formula -->
+                    <StackLayout x:Name="Formula" Grid.Column="0" Grid.Row="0" Margin="12,12,12,0" Spacing="0">
+                        <Label Text="{x:Static resources:AppResource.FormulaSpacerVAbout}" Margin="0,8,0,8" />
+                        <Label Text="Vsp = π/4 х Ccomp х" FontAttributes="Bold" Margin="0,8,0,0" />
+                        <Label Text="[(ODcas - Tcas x 2)^2 х (Lcas - Lhcp)] + Vpline" FontAttributes="Bold" Margin="0,0,0,8" />
+                    </StackLayout>
+                    <!-- Formula parameters -->
+                    <Grid Grid.Column="0" Grid.Row="1" Margin="12,12,12,40" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="Start"
+                          RowDefinitions="auto, auto, auto, auto, auto, auto, auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="68" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="{x:OnPlatform Android='88', iOS='88', UWP='100'}" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- coefficient of compression -->
+                        <Label Grid.Row="0" Grid.Column="0" Text="Ccomp" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaCcomp}" Margin="0,8,8,0" VerticalOptions="Center" />
+                        <Entry Grid.Row="0" Grid.Column="2" x:Name="edCcompres" Margin="0,12,0,0" Placeholder="{x:Static resources:AppResource.FormulaZero}"
+                               Text="{Binding CalcCementItem.CCOMPRES, StringFormat='{}{0:N2}', Mode=OneWay}" VerticalOptions="Center"
+                               HeightRequest="{x:OnPlatform Android='40', iOS='40', UWP='32'}" TextChanged="OnTextChanged" Keyboard="Numeric" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+
+                        <!-- Pipeline Volume -->
+                        <Label Grid.Row="1" Grid.Column="0" Text="Vpline" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaVpline}" Margin="0,8,8,0" VerticalOptions="Center" />
+                        <Entry Grid.Row="1" Grid.Column="2" x:Name="edVpipeline" Margin="0,12,0,0" Placeholder="{x:Static resources:AppResource.FormulaZero}"
+                               Text="{Binding CalcCementItem.VPIPELINE, StringFormat='{}{0:N2}', Mode=OneWay}" VerticalOptions="Center"
+                               HeightRequest="{x:OnPlatform Android='40', iOS='40', UWP='32'}" TextChanged="OnTextChanged" Keyboard="Numeric" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+
+
+                        <!-- !!!!!!!!!!!!!!!!! -->
+
+                        <!-- casing type -->
+                        <Label Grid.Row="2" Grid.Column="1" Text="{x:Static resources:AppResource.TypePipes}" Margin="0,8,20,0" VerticalOptions="Center" HorizontalOptions="End" />
+                        <Picker x:Name="picPipeType" Grid.Row="2" Grid.Column="2" Margin="0,12,0,0" SelectedIndexChanged="ChangePipeType" VerticalOptions="Center"
+                                ItemsSource="{Binding PipesCollection}" ItemDisplayBinding="{Binding TYPENAME}" />
+
+                        <!-- casing outside diameter -->
+                        <Label Grid.Row="3" Grid.Column="0" Text="ODcas" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="3" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaDoutCasing}" Margin="0,8,8,0" VerticalOptions="Center" />
+                        <Picker x:Name="picODcas" Grid.Row="3" Grid.Column="2" Margin="0,12,0,0" SelectedIndexChanged="ChangePipeOD" VerticalOptions="Center"
+                                ItemsSource="{Binding PipesODList}" ItemDisplayBinding="{Binding PIPESOD}" >
+                            <Picker.Triggers>
+                                <DataTrigger TargetType="Picker" Binding="{Binding Source={x:Reference picPipeType}, Path=SelectedIndex}" Value="-1" >
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Picker.Triggers>
+                        </Picker>
+
+                        <!-- thickness of the wall of the cemented casing -->
+                        <Label Grid.Row="4" Grid.Column="0" Text="Tcas" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="4" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaTcasing}" Margin="0,8,8,0" VerticalOptions="Center" />
+                        <Picker x:Name="picTcas" Grid.Row="4" Grid.Column="2" Margin="0,12,0,0" SelectedIndexChanged="OnSelectedIndexChanged" VerticalOptions="Center"
+                                ItemsSource="{Binding PipesTWList}" ItemDisplayBinding="{Binding PIPESWALL}" >
+                            <Picker.Triggers>
+                                <DataTrigger TargetType="Picker" Binding="{Binding Source={x:Reference picODcas}, Path=SelectedIndex}" Value="-1" >
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Picker.Triggers>
+                        </Picker>
+
+                        <!-- casing length -->
+                        <Label Grid.Row="5" Grid.Column="0" Text="Lcas" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="5" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaLCasing}" Margin="0,8,8,0" VerticalOptions="Center" />
+                        <Entry Grid.Row="5" Grid.Column="2" x:Name="edLcas" Margin="0,12,0,0" Placeholder="{x:Static resources:AppResource.FormulaZero}"
+                               Text="{Binding CalcCementItem.LCAS, StringFormat='{}{0:N2}', Mode=OneWay}" VerticalOptions="Center"
+                               HeightRequest="{x:OnPlatform Android='40', iOS='40', UWP='32'}" TextChanged="OnTextChanged" Keyboard="Numeric" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+
+                        <!-- HCP -->
+                        <Label Grid.Row="6" Grid.Column="0" Text="Lhcp" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="6" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaHCP}" Margin="0,8,8,0" VerticalOptions="Center" />
+                        <Entry Grid.Row="6" Grid.Column="2" x:Name="edLhcp" Margin="0,12,0,0" Placeholder="{x:Static resources:AppResource.FormulaZero}"
+                               Text="{Binding CalcCementItem.LHCP, StringFormat='{}{0:N2}', Mode=OneWay}" VerticalOptions="Center"
+                               HeightRequest="{x:OnPlatform Android='40', iOS='40', UWP='32'}" TextChanged="OnTextChanged" Keyboard="Numeric" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </Grid>
+                </Grid>
+            </ScrollView>
+        </StackLayout>
+
+        <StackLayout Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="indicator" IsVisible="{Binding Source={x:Reference spacerVolumePage}, Path=IsBusy}"
+                               IsRunning="{Binding Source={x:Reference spacerVolumePage}, Path=IsBusy}" Color="DarkOrange" HeightRequest="48" WidthRequest="48" BackgroundColor="Transparent" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

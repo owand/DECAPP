@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:DECAPP.Resources"
+             xmlns:services="clr-namespace:DECAPP.Services"
+             xmlns:local="clr-namespace:DECAPP;assembly=DECAPP"
+             x:Class="DECAPP.Views.Equipment.FuelDenTablePage"
+             Title="{x:Static resources:AppResource.TitleFuelDenTable}"
+             x:Name="fuelDenTablePage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="Style" Value="{DynamicResource labelStyle}" />
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="Style" Value="{DynamicResource editorStyle}" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Style" Value="{DynamicResource entryStyle}" />
+            </Style>
+            <Style TargetType="Frame">
+                <Setter Property="Style" Value="{StaticResource frameStyle}" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Style" Value="{StaticResource buttonStyle}" />
+            </Style>
+            <Style TargetType="Picker">
+                <Setter Property="Style" Value="{DynamicResource pickerStyle}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="tbFilter" Priority="0" Order="Primary" Clicked="OpenFilter">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="{x:StaticResource MaterialIcons}" Glyph="{StaticResource FilterIcon}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <StackLayout Spacing="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Background_Dark}, Light={StaticResource Background_Light}}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" >
+            <!-- Header - CommandBar -->
+            <Grid BackgroundColor="#515C6B" ColumnSpacing="0" RowSpacing="0" HeightRequest="48" MinimumHeightRequest="48"
+                  IsVisible="{Binding Source={x:Static local:App.ProState}}" ColumnDefinitions="*, *">
+                <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" Spacing="0">
+                    <!-- EditCommandBar -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="0" >
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <Button x:Name="EditButton" Text="{StaticResource EditIcon}" Released="OnEdit" />
+                        <Button x:Name="AddButton" Text="{StaticResource AddIcon}" Released="OnAdd" />
+                        <Button x:Name="DeleteButton" Text="{StaticResource DeleteIcon}" Released="OnDelete" />
+                    </StackLayout>
+                    <!-- SaveCommandBar -->
+                    <StackLayout x:Name="SaveCommandBar" Orientation="Horizontal" HorizontalOptions="End" Spacing="0" IsVisible="False" >
+                        <Button Text="{StaticResource SaveIcon}" Released="OnSave" IsEnabled="True" >
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference picENERGYNAME}, Path=SelectedIndex, Mode=OneWay}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference editBASETEMP}, Path=Text.Length, Mode=OneWay}" Value="0">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference editTABLE}, Path=Text.Length, Mode=OneWay}" Value="0">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference editTEMP}, Path=Text.Length, Mode=OneWay}" Value="0">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference editBASEDENSITY}, Path=Text.Length, Mode=OneWay}" Value="0">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference editDENSITY}, Path=Text.Length, Mode=OneWay}" Value="0">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="{StaticResource CancelIcon}" Released="OnCancel" />
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+            <!-- FilterBar -->
+            <StackLayout x:Name="FilterBar" BackgroundColor="#1F252C" VerticalOptions="Start" Spacing="0" HorizontalOptions="FillAndExpand"
+                         Orientation="{x:OnIdiom Tablet='Horizontal', Desktop='Horizontal', Phone='Vertical'}" IsVisible="False" >
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </StackLayout.Triggers>
+                <!-- Filters -->
+                <Grid HorizontalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" RowDefinitions="Auto" ColumnDefinitions="2*, auto, 1*, auto" >
+                    <!-- Energy Filter -->
+                    <Picker Grid.Column="0" x:Name="picFILTERENERGY" SelectedIndexChanged="OnFilter" Style="{StaticResource filterPickerStyle}"
+                            ItemsSource="{Binding EnergyList}" ItemDisplayBinding="{Binding ENERGYNAME}" />
+                    <Button Grid.Column="1" x:Name="btCancelFilterEnergy" Text="{StaticResource FilterCancelIcon}" Released="OnCancelFilterEnergy" Style="{DynamicResource buttonFilterStyle}" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference picFILTERENERGY}, Path=SelectedIndex, Mode=OneWay}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <!-- BaseTemp Filter -->
+                    <Picker Grid.Column="2" x:Name="picFILTERBASETEMP" SelectedIndexChanged="OnFilter" Style="{StaticResource filterPickerStyle}"
+                            ItemsSource="{Binding BaseTempList}" />
+                    <Button Grid.Column="3" x:Name="btCancelFilterBaseTemp" Text="{StaticResource FilterCancelIcon}" Released="OnCancelFilterBaseTemp" Style="{DynamicResource buttonFilterStyle}" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference picFILTERBASETEMP}, Path=SelectedIndex, Mode=OneWay}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Grid>
+                <Grid HorizontalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" RowDefinitions="Auto" ColumnDefinitions="1*, auto, 1*, auto, 1*, auto">
+                    <!-- Table Filter -->
+                    <Picker Grid.Column="0" x:Name="picFILTERTABLE" SelectedIndexChanged="OnFilter" Style="{StaticResource filterPickerStyle}"
+                            ItemsSource="{Binding TableList}" Title="{OnPlatform Android={x:Static resources:AppResource.TableSymbolTitle}, iOS={x:Static resources:AppResource.TableSymbolTitle}}" />
+                    <Button Grid.Column="1" x:Name="btCancelFilterTable" Text="{StaticResource FilterCancelIcon}" Released="OnCancelFilterTable" Style="{DynamicResource buttonFilterStyle}" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference picFILTERTABLE}, Path=SelectedIndex, Mode=OneWay}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <!-- Temp Filter -->
+                    <Picker Grid.Column="2" x:Name="picFILTERTEMP" SelectedIndexChanged="OnFilter" Style="{StaticResource filterPickerStyle}"
+                            ItemsSource="{Binding TempList}" Title="{OnPlatform Android='t, °C', iOS='t, °C'}" />
+                    <Button Grid.Column="3" x:Name="btCancelFilterTemp" Text="{StaticResource FilterCancelIcon}" Released="OnCancelFilterTemp" Style="{DynamicResource buttonFilterStyle}" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference picFILTERTEMP}, Path=SelectedIndex, Mode=OneWay}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <!-- Base Density Filter -->
+                    <Picker Grid.Column="4" x:Name="picFILTERBASEDENSITY" SelectedIndexChanged="OnFilter" Style="{StaticResource filterPickerStyle}"
+                            ItemsSource="{Binding BaseDensityList}" Title="{OnPlatform Android={x:Static resources:AppResource.DensityBaseTitle}, iOS={x:Static resources:AppResource.DensityBaseTitle}}" />
+                    <Button Grid.Column="5" x:Name="btCancelFilterBaseDensity" Text="{StaticResource FilterCancelIcon}" Released="OnCancelFilterBaseDensity" Style="{DynamicResource buttonFilterStyle}" >
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference picFILTERBASEDENSITY}, Path=SelectedIndex, Mode=OneWay}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Grid>
+            </StackLayout>
+
+            <!--Content-->
+            <Grid x:Name="Body" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{x:OnIdiom Phone='0'}" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!-- Detail -->
+                <ScrollView x:Name="Detail" Grid.Row="0" >
+                    <Grid Margin="12,12,8,12" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" InputTransparent="True" RowDefinitions="60, 108, 96, 72">
+                        <Grid.Triggers>
+                            <DataTrigger TargetType="Grid" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                                <Setter Property="InputTransparent" Value="False" />
+                            </DataTrigger>
+                        </Grid.Triggers>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="{x:OnIdiom Tablet='360', Desktop='360', Phone='*'}" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="0.7*, 1*, 1.4*, 0.4*">
+                            <!-- Energy Name -->
+                            <Label Grid.Column="0" x:Name="labEnergy" Margin="0,12,0,12" Text="{x:Static resources:AppResource.EnergyLabel}" TextColor="#515C6B" />
+                            <Picker Grid.Column="1" x:Name="picENERGYNAME" SelectedIndex="{Binding IndexEnergyList}"
+                                    ItemsSource="{Binding EnergyList}" SelectedItem="{Binding SelectItem.ENERGYID, Mode=TwoWay}" ItemDisplayBinding="{Binding ENERGYNAME}" />
+                            <!-- Table -->
+                            <Label Grid.Column="2" x:Name="labTable" Margin="0,12,18,12" Text="{x:Static resources:AppResource.TableSymbolLabel}" TextColor="#515C6B" HorizontalTextAlignment="End" />
+                            <Editor Grid.Column="3" x:Name="editTABLE" Text="{Binding SelectItem.TABLE}" />
+                        </Grid>
+
+                        <!-- Coupling Ø & Length & Mass -->
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" RowDefinitions="*, *" ColumnDefinitions="*, *, *, *">
+                            <!-- BaseTemp -->
+                            <Label Grid.Column="0" Grid.Row="0" x:Name="labBaseTemp" Margin="0,0,12,0" Text="{x:Static resources:AppResource.TempBaseLabel}"
+                                   TextColor="#515C6B" LineBreakMode="WordWrap" VerticalTextAlignment="End" VerticalOptions="End" />
+                            <StackLayout Grid.Column="0" Grid.Row="1" Spacing="0" Margin="12,0,0,0">
+                                <Entry x:Name="editBASETEMP" Text="{Binding SelectItem.BASETEMP}" Keyboard="Numeric" >
+                                    <Entry.Behaviors>
+                                        <services:NumericEntryBehavior />
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </StackLayout>
+                            <!-- Temp -->
+                            <Label Grid.Column="1" Grid.Row="0" x:Name="labTemp" Margin="0,0,30,0" Text="t, °C:"
+                                   TextColor="#515C6B" LineBreakMode="WordWrap" VerticalTextAlignment="End" VerticalOptions="End" />
+                            <StackLayout Grid.Column="1" Grid.Row="1" Spacing="0" Margin="12,0,0,0">
+                                <Entry x:Name="editTEMP" Text="{Binding SelectItem.TEMPFORMAT}" Keyboard="Numeric" >
+                                    <Entry.Behaviors>
+                                        <services:NumericEntryBehavior />
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </StackLayout>
+                            <!-- Base Density -->
+                            <Label Grid.Column="2" Grid.Row="0" x:Name="labBaseDensity" Margin="0,0,8,0" Text="{x:Static resources:AppResource.DensityBaseLabel}"
+                                   TextColor="#515C6B" LineBreakMode="WordWrap" VerticalTextAlignment="End" VerticalOptions="End" />
+                            <StackLayout Grid.Column="2" Grid.Row="1" Spacing="0" Margin="12,0,0,0">
+                                <Entry x:Name="editBASEDENSITY" Text="{Binding SelectItem.BASEDENSITY}" Keyboard="Numeric" >
+                                    <Entry.Behaviors>
+                                        <services:NumericEntryBehavior />
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </StackLayout>
+                            <!-- Density -->
+                            <Label Grid.Column="3" Grid.Row="0" x:Name="labDensity" Margin="0,0,4,0" Text="{x:Static resources:AppResource.DensityLabel}" 
+                                   TextColor="#515C6B" LineBreakMode="WordWrap" VerticalTextAlignment="End" VerticalOptions="End" />
+                            <StackLayout Grid.Column="3" Grid.Row="1" Spacing="0" Margin="12,0,0,0">
+                                <Entry x:Name="editDENSITY" Text="{Binding SelectItem.DENSITYFORMAT}" Keyboard="Numeric" >
+                                    <Entry.Behaviors>
+                                        <services:NumericEntryBehavior />
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </StackLayout>
+                        </Grid>
+
+                        <!-- Description -->
+                        <Label Grid.Row="2" Grid.Column="0" Margin="0,12,0,12" Text="{x:Static resources:AppResource.Description}" TextColor="#515C6B" />
+                        <Editor Grid.Row="2" Grid.Column="1" Text="{Binding SelectItem.DESCRIPTION}" Placeholder="{x:Static resources:AppResource.HeaderDescription}" />
+
+                        <!-- Note -->
+                        <Label Grid.Row="3" Grid.Column="0" Margin="0,12,0,12" Text="{x:Static resources:AppResource.Note}" TextColor="#515C6B" />
+                        <Editor Grid.Row="3" Grid.Column="1" Text="{Binding SelectItem.NOTE}" Placeholder="{x:Static resources:AppResource.HeaderNote}" />
+                    </Grid>
+                </ScrollView>
+
+                <!-- Navigation items-->
+                <StackLayout Grid.Row="1" x:Name="Master" BackgroundColor="#1F252C" VerticalOptions="FillAndExpand" Spacing="0" >
+                    <StackLayout.Triggers>
+                        <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </StackLayout.Triggers>
+                    <!-- Header ListView -->
+                    <Grid x:Name="MasterHeader" BackgroundColor="#2D353E" ColumnSpacing="0" RowSpacing="0" HeightRequest="48" MinimumHeightRequest="48" ColumnDefinitions="*, *, *, *, *">
+                        <Label Grid.Column="0" Text="{x:Static resources:AppResource.TempBaseTitle}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" LineBreakMode="WordWrap" />
+                        <Label Grid.Column="1" Text="{x:Static resources:AppResource.TableSymbolTitle}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" LineBreakMode="WordWrap" />
+                        <Label Grid.Column="2" Text="t, °C" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" LineBreakMode="WordWrap" />
+                        <Label Grid.Column="3" Text="{x:Static resources:AppResource.DensityBaseTitle}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" LineBreakMode="WordWrap" />
+                        <Label Grid.Column="4" Text="{x:Static resources:AppResource.DensityTitle}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" LineBreakMode="WordWrap" />
+                    </Grid>
+                    <!-- Master ListView -->
+                    <ListView x:Name="MasterContent" HasUnevenRows="True" ItemsSource="{Binding Collection}" BackgroundColor="Transparent"
+                              ItemTapped="OnTapped" ItemSelected="OnSelection" Margin="0,1,0,0" CachingStrategy="RecycleElement" SelectedItem="{Binding SelectItem, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Spacing="0" HeightRequest="48">
+                                        <Grid ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="*, *, *, *, *">
+                                            <Label Grid.Column="0" Text="{Binding BASETEMP}" Margin="4,4,4,4" Style="{StaticResource labelTableStyle}" />
+                                            <Label Grid.Column="1" Text="{Binding TABLE}" Margin="4,4,4,4" Style="{StaticResource labelTableStyle}" />
+                                            <Label Grid.Column="2" Text="{Binding TEMPFORMAT}" Margin="4,4,4,4" Style="{StaticResource labelTableStyle}" />
+                                            <Label Grid.Column="3" Text="{Binding BASEDENSITY}" Margin="4,4,4,4" Style="{StaticResource labelTableStyle}" />
+                                            <Label Grid.Column="4" Text="{Binding DENSITYFORMAT}" Margin="4,4,4,4" Style="{StaticResource labelTableStyle}" />
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="indicator" IsVisible="{Binding Source={x:Reference fuelDenTablePage}, Path=IsBusy}"
+                               IsRunning="{Binding Source={x:Reference fuelDenTablePage}, Path=IsBusy}" Color="DarkOrange" HeightRequest="48" WidthRequest="48" BackgroundColor="Transparent" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

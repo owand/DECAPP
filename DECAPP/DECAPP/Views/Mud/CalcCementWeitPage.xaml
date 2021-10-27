@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:DECAPP.Resources"
+             xmlns:services="clr-namespace:DECAPP.Services"
+             x:Class="DECAPP.Views.Mud.CalcCementWeitPage"
+             Title="{x:Static resources:AppResource.TitleCalcCementWeight}"
+             x:Name="cementWeightPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="Style" Value="{DynamicResource labelStyle}" />
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="Style" Value="{DynamicResource editorStyle}" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Style" Value="{DynamicResource entryStyle}" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Style" Value="{StaticResource buttonStyle}" />
+            </Style>
+            <Style TargetType="Picker">
+                <Setter Property="Style" Value="{DynamicResource pickerStyle}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <StackLayout Spacing="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Background_Dark}, Light={StaticResource Background_Light}}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" >
+            <Grid ColumnSpacing="0" RowSpacing="0" RowDefinitions="48, 60, *">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{x:OnIdiom Tablet='500', Desktop='500', Phone='*'}" />
+                    <ColumnDefinition Width="{x:OnIdiom Tablet='*', Desktop='*', Phone='0'}" />
+                </Grid.ColumnDefinitions>
+                <!--Header-->
+                <Grid x:Name="Header" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" ColumnSpacing="0" RowSpacing="0" BackgroundColor="#515C6B"
+                      ColumnDefinitions="*, *" HeightRequest="48" MinimumHeightRequest="48">
+                    <!-- SaveCommandBar -->
+                    <StackLayout Grid.Column="1" x:Name="SaveCommandBar" Orientation="Horizontal" HorizontalOptions="End" Spacing="0">
+                        <Button Text="{StaticResource CancelIcon}" Released="OnCancel" />
+                        <Button Text="{StaticResource SaveIcon}" Released="OnSave" />
+                    </StackLayout>
+                </Grid>
+
+                <!-- Объём тампонажного раствора, м.куб. -->
+                <Grid Grid.Column="0" Grid.Row="1" ColumnSpacing="0" RowSpacing="0" Margin="12,0,12,8" HeightRequest="48" MinimumHeightRequest="48" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="52" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="{x:OnPlatform Android='88', iOS='88', UWP='100'}" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="Vcs" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center"
+                           TextColor="DarkOrange" FontSize="{OnPlatform Android='15', iOS='15', UWP='16'}" />
+                    <Label Grid.Column="1" Text="{x:Static resources:AppResource.FormulaCementVolume}" Margin="0,8,20,0" VerticalOptions="Center"
+                           TextColor="DarkOrange" FontSize="{OnPlatform Android='14', iOS='14', UWP='15'}" FontAttributes="Bold" />
+                    <Entry Grid.Column="2" x:Name="edVcs" Placeholder="{x:Static resources:AppResource.FormulaZero}" VerticalOptions="CenterAndExpand"
+                           Margin="0,12,0,0" TextChanged="OnTextChanged" Keyboard="Numeric" FontAttributes="Bold" TextColor="DarkOrange"
+                           FontSize="{OnPlatform Android='14', iOS='14', UWP='15'}" PlaceholderColor="DarkOrange" >
+                        <Entry.Behaviors>
+                            <services:NumericEntryBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+                </Grid>
+
+                <!--Content-->
+                <ScrollView x:Name="Detail" Grid.Column="0" Grid.Row="2" VerticalOptions="FillAndExpand">
+                    <!-- Formula parameters -->
+                    <Grid x:Name="FormulaContent" Grid.Column="0" Margin="12,12,12,40" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="Start"
+                          RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="68" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="{x:OnPlatform Android='88', iOS='88', UWP='100'}" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- About Formula -->
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static resources:AppResource.FormulaCementWAbout}" Margin="0,8,0,12" />
+
+                        <!-- Плотность тампонажного раствора, г/см3 / The density of cement slurry, g / cm3 -->
+                        <Label Grid.Row="1" Grid.Column="0" Text="Dslurry" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaDSlurry}" Margin="0,8,20,0" VerticalOptions="Center" />
+                        <Entry Grid.Row="1" Grid.Column="2" x:Name="edDensitySlurry" Margin="0,12,0,0" Placeholder="{x:Static resources:AppResource.FormulaZero}"
+                               Text="{Binding CalcCementItem.DENSITYSLURRY, StringFormat='{}{0:N2}', Mode=OneWay}" VerticalOptions="Center"
+                               HeightRequest="{x:OnPlatform Android='40', iOS='40', UWP='32'}" TextChanged="OnTextChanged" Keyboard="Numeric" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!-- Плотность жидкости затворения, г/см3 / Density of mixing fluid, g / cm3 -->
+                        <Label Grid.Row="2" Grid.Column="0" Text="Dfluid" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaDFluid}" Margin="0,8,20,0" VerticalOptions="Center" />
+                        <Entry Grid.Row="2" Grid.Column="2" x:Name="edDensityFluid" Margin="0,12,0,0" Placeholder="{x:Static resources:AppResource.FormulaZero}"
+                               Text="{Binding CalcCementItem.DENSITYFLUID, StringFormat='{}{0:N2}', Mode=OneWay}" VerticalOptions="Center"
+                               HeightRequest="{x:OnPlatform Android='40', iOS='40', UWP='32'}" TextChanged="OnTextChanged" Keyboard="Numeric" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+
+                        <!-- Уникальный код реагентов и тампонажных смесей -->
+                        <Label Grid.Row="3" Grid.Column="0" Text="{x:Static resources:AppResource.Cement}" Margin="0,12,0,12" VerticalOptions="Center" FontAttributes="Bold" />
+                        <Picker x:Name="picMudName" Grid.Row="3" Grid.Column="1" Margin="0,12,20,16" SelectedIndexChanged="OnSelectedIndexChanged"
+                                ItemsSource="{Binding Collection}" SelectedItem="{Binding ID, Mode=TwoWay}" ItemDisplayBinding="{Binding MUDNAME}" SelectedIndex="{Binding ID, Mode=TwoWay}"
+                                Title="{OnPlatform Android={x:Static resources:AppResource.HeaderName}, iOS={x:Static resources:AppResource.HeaderName}}" VerticalOptions="Center" />
+                        <Label Grid.Row="3" Grid.Column="2" x:Name="labDensityDryCement" Text="{x:Static resources:AppResource.FormulaZero}"
+                               HorizontalTextAlignment="Start" TextColor="DarkOrange" VerticalOptions="Center"
+                               Margin="{OnPlatform Android='4,12,8,12', iOS='4,12,8,12', UWP='12,12,8,12'}" />
+
+                        <!-- About Formula - Коэффициент водо-твердого отношения / Coefficient of water-solid ratio -->
+                        <StackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,12,12,4" Spacing="0"
+                                 VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand">
+                            <Label Text="{x:Static resources:AppResource.FormulaCwsAbout}" Margin="0,8,0,0" />
+                            <Label Text="Cws = Dfluid * (Dсement - Dslurry) /" FontAttributes="Bold" Margin="0,8,0,0" />
+                            <Label Text="(Dсement * (Dslurry - Dfluid))" FontAttributes="Bold" Margin="0,0,0,0" />
+                        </StackLayout>
+                        <!-- Коэффициент водо-твердого отношения / Coefficient of water-solid ratio -->
+                        <Label Grid.Row="5" Grid.Column="0" Text="Cws" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="5" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaCWaterSolid}" Margin="0,8,20,0" VerticalOptions="Center" />
+                        <Label Grid.Row="5" Grid.Column="2" x:Name="labCWaterSolid" Text="{x:Static resources:AppResource.FormulaZero}"
+                               HorizontalTextAlignment="Start" TextColor="DarkOrange" FontAttributes="Bold" VerticalOptions="Center"
+                               Margin="{OnPlatform Android='4,12,8,12', iOS='4,12,8,12', UWP='12,12,8,12'}" />
+
+                        <!-- About Formula - Масса компонентов на 1м.куб. раствора, т. -->
+                        <StackLayout Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,12,12,8" Spacing="0"
+                                     VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand">
+                            <Label Text="{x:Static resources:AppResource.FormulaComponentWAbout}" Margin="0,8,0,0" />
+                            <Label Text="Gcem = Dslurry / (1 + Cws)" FontAttributes="Bold" Margin="0,8,0,0" />
+                            <Label Text="Gflu = Cws * Gcem" FontAttributes="Bold" Margin="0,8,0,0" />
+                        </StackLayout>
+                        <!-- Масса цемента на 1м.куб. раствора, т. -->
+                        <Label Grid.Row="7" Grid.Column="0" Text="Gcem" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="7" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaGcem}" Margin="0,8,20,0" VerticalOptions="Center" />
+                        <Label Grid.Row="7" Grid.Column="2" x:Name="labGсement" Text="{x:Static resources:AppResource.FormulaZero}"
+                               HorizontalTextAlignment="Start" TextColor="DarkOrange" FontAttributes="Bold" VerticalOptions="Center"
+                               Margin="{OnPlatform Android='4,12,8,12', iOS='4,12,8,12', UWP='12,12,8,12'}" />
+                        <!-- Масса жидкости затворения на 1м.куб. раствора, т. -->
+                        <Label Grid.Row="8" Grid.Column="0" Text="Gflu" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="8" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaGflu}" Margin="0,8,20,0" VerticalOptions="Center" />
+                        <Label Grid.Row="8" Grid.Column="2" x:Name="labGfluid" Text="{x:Static resources:AppResource.FormulaZero}"
+                               HorizontalTextAlignment="Start" TextColor="DarkOrange" FontAttributes="Bold" VerticalOptions="Center"
+                               Margin="{OnPlatform Android='4,12,8,12', iOS='4,12,8,12', UWP='12,12,8,12'}" />
+
+                        <!-- About Formula - Общая масса сухого тампонажного материала, т. -->
+                        <StackLayout Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,12,12,8" Spacing="0"
+                                     VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand">
+                            <Label Text="{x:Static resources:AppResource.FormulaCementTWAbout}" Margin="0,8,0,0" />
+                            <Label Text="TGcem = Vcs * Gcem * CLCem" FontAttributes="Bold" Margin="0,8,0,0" />
+                        </StackLayout>
+                        <!-- Объём тампонажного раствора, м.куб. -->
+                        <!--<Label Grid.Row="10" Grid.Column="0" Text="Vcs" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />-->
+                        <!--<Label Grid.Row="10" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaCementVolume}" Margin="0,8,20,0" VerticalOptions="Center" />-->
+                        <!--<Entry Grid.Row="10" Grid.Column="2" x:Name="edVcs" Margin="0,12,0,0" Placeholder="{x:Static resources:AppResource.FormulaZero}" VerticalOptions="Center"
+                           HeightRequest="{x:OnPlatform Android='40', iOS='40', UWP='32'}" TextChanged="OnTextChanged" Keyboard="Numeric" >
+                        <Entry.Behaviors>
+                            <services:NumericEntryBehavior />
+                        </Entry.Behaviors>
+                    </Entry>-->
+                        <!-- Коэффициент потерь сухого цемента / Dry cement loss ratio -->
+                        <Label Grid.Row="11" Grid.Column="0" Text="CLCem" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="11" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaCLossCement}" Margin="0,8,20,0" VerticalOptions="Center" />
+                        <Entry Grid.Row="11" Grid.Column="2" x:Name="edCLossCement" Margin="0,12,0,0" Placeholder="{x:Static resources:AppResource.FormulaZero}"
+                               Text="{Binding CalcCementItem.CLOSSCEMENT, StringFormat='{}{0:N2}', Mode=OneWay}" VerticalOptions="Center"
+                               HeightRequest="{x:OnPlatform Android='40', iOS='40', UWP='32'}" TextChanged="OnTextChanged" Keyboard="Numeric" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!-- Общая масса сухого тампонажного материала, т. -->
+                        <Label Grid.Row="12" Grid.Column="0" Text="TGcem" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="12" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaTGcem}" Margin="0,8,20,0" VerticalOptions="Center" />
+                        <Label Grid.Row="12" Grid.Column="2" x:Name="labTGcem" Text="{x:Static resources:AppResource.FormulaZero}"
+                               HorizontalTextAlignment="Start" TextColor="DarkOrange" FontAttributes="Bold" VerticalOptions="Center"
+                               Margin="{OnPlatform Android='4,12,8,12', iOS='4,12,8,12', UWP='12,12,8,12'}" />
+
+
+                        <!-- About Formula - Общий объём жидкости затворения, м.куб. -->
+                        <StackLayout Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,12,12,8" Spacing="0" VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand">
+                            <Label Text="{x:Static resources:AppResource.FormulaFluidTWAbout}" Margin="0,8,0,0" />
+                            <Label Text="TGflu = Vcs * Gflu * CLWater / Dfluid" FontAttributes="Bold" Margin="0,8,0,0" />
+                        </StackLayout>
+                        <!-- Коэффициент потери воды / Water loss coefficient -->
+                        <Label Grid.Row="14" Grid.Column="0" Text="CLWater" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="14" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaCLossWater}" Margin="0,8,20,0" VerticalOptions="Center" />
+                        <Entry Grid.Row="14" Grid.Column="2" x:Name="edCLossWater" Margin="0,12,0,0" Placeholder="{x:Static resources:AppResource.FormulaZero}"
+                               Text="{Binding CalcCementItem.CLOSSWATER, StringFormat='{}{0:N2}', Mode=OneWay}" VerticalOptions="Center"
+                               HeightRequest="{x:OnPlatform Android='40', iOS='40', UWP='32'}" TextChanged="OnTextChanged" Keyboard="Numeric" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!-- Общая масса сухого тампонажного материала, т. -->
+                        <Label Grid.Row="15" Grid.Column="0" Text="TGflu" FontAttributes="Bold" Margin="0,8,0,0" VerticalOptions="Center" />
+                        <Label Grid.Row="15" Grid.Column="1" Text="{x:Static resources:AppResource.FormulaTGflu}" Margin="0,8,20,0" VerticalOptions="Center" />
+                        <Label Grid.Row="15" Grid.Column="2" x:Name="labTGflu" Text="{x:Static resources:AppResource.FormulaZero}"
+                               HorizontalTextAlignment="Start" TextColor="DarkOrange" FontAttributes="Bold" VerticalOptions="Center"
+                               Margin="{OnPlatform Android='4,12,8,12', iOS='4,12,8,12', UWP='12,12,8,12'}" />
+
+                    </Grid>
+                </ScrollView>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="indicator" IsVisible="{Binding Source={x:Reference cementWeightPage}, Path=IsBusy}"
+                               IsRunning="{Binding Source={x:Reference cementWeightPage}, Path=IsBusy}" Color="DarkOrange" HeightRequest="48" WidthRequest="48" BackgroundColor="Transparent" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.plowand.decapp" android:installLocation="auto" android:versionName="21.09" android:versionCode="446">
+	<uses-sdk android:minSdkVersion="22" android:targetSdkVersion="31" />
+	<uses-permission android:name="com.android.vending.BILLING" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<application android:label="@string/ApplicationName" android:allowBackup="true" android:hardwareAccelerated="true" android:largeHeap="true" android:supportsRtl="true" android:icon="@drawable/icon" android:theme="@style/MainTheme">
+		<!-- Microsoft identity client -->
+		<activity android:name="microsoft.identity.client.BrowserTabActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="msal78eeb745-6cef-4309-8d6e-6505c7071c9e" android:host="auth" />
+			</intent-filter>
+		</activity>
+		<!-- Google Play Services -->
+		<!--<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />-->
+		<!--<meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-3441985749782200~3737328325" />-->
+		<!-- AdMob -->
+		<!--<activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:theme="@android:style/Theme.Translucent" />-->
+	</application>
+</manifest>

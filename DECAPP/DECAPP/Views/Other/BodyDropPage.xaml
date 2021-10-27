@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:DECAPP.Resources"
+             xmlns:services="clr-namespace:DECAPP.Services"
+             x:Class="DECAPP.Views.Other.BodyDropPage"
+             Title="{x:Static resources:AppResource.TitleBodyDrop}"
+             x:Name="ballMovePage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="Style" Value="{DynamicResource labelStyle}" />
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="Style" Value="{DynamicResource editorStyle}" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Style" Value="{DynamicResource entryStyle}" />
+            </Style>
+            <Style TargetType="Frame">
+                <Setter Property="Style" Value="{StaticResource frameStyle}" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Style" Value="{StaticResource buttonStyle}" />
+            </Style>
+            <Style TargetType="Picker">
+                <Setter Property="Style" Value="{DynamicResource pickerStyle}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <StackLayout Spacing="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Background_Dark}, Light={StaticResource Background_Light}}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" >
+            <!--Header-->
+            <Grid x:Name="Header" ColumnSpacing="0" RowSpacing="0" BackgroundColor="#515C6B" HeightRequest="48" MinimumHeightRequest="48" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{x:OnIdiom Tablet='500', Desktop='500', Phone='*'}" />
+                    <ColumnDefinition Width="{x:OnIdiom Tablet='*', Desktop='*', Phone='0'}" />
+                </Grid.ColumnDefinitions>
+                <!--Header Results-->
+                <Grid Grid.Column="0" ColumnSpacing="0" RowSpacing="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="{x:Static resources:AppResource.BodyDropTimeLabel}" FontSize="{OnPlatform Android='14', iOS='14', UWP='16'}" TextColor="White"
+                           VerticalOptions="CenterAndExpand" LineBreakMode="WordWrap" Margin="{OnPlatform Android='4,4,8,4', iOS='4,4,8,4', UWP='12,0,8,4'}" />
+                    <Label Grid.Column="1" Text="0.00" x:Name="resultBODYDROP" FontAttributes="Bold" TextColor="DarkOrange" Margin="{OnPlatform Android='8,4,16,4', iOS='8,4,16,4', UWP='12,0,16,4'}"
+                           VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" FontSize="20" />
+                    <!-- SaveCommandBar -->
+                    <StackLayout Grid.Column="2" x:Name="SaveCommandBar" Orientation="Horizontal" HorizontalOptions="End" Spacing="0">
+                        <Button Text="{StaticResource CancelIcon}" Released="OnCancel" />
+                    </StackLayout>
+                </Grid>
+            </Grid>
+
+            <!--Content-->
+            <ScrollView VerticalOptions="FillAndExpand" >
+                <Grid x:Name="FormulaContent" ColumnSpacing="0" RowSpacing="0" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='500', Desktop='500', Phone='*'}" />
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='*', Desktop='*', Phone='0'}" />
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='500', Desktop='500', Phone='0'}" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackLayout Grid.Column="0" Grid.Row="0" Spacing="0">
+                        <!--<Label Text="{x:Static resources:AppResource.TitleDevelopment}" Margin="12,12,12,12" FontSize="16" TextColor="Red" HorizontalOptions="CenterAndExpand" />-->
+                        <Label Text="{x:Static resources:AppResource.TitleThanks}" Margin="{OnPlatform Android='4,4,4,0', iOS='4,4,4,0', UWP='12,4,4,0'}"
+                               TextColor="DarkOrange" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" FontAttributes="Bold" />
+                    </StackLayout>
+
+                    <!-- Formula parameters -->
+                    <Grid Grid.Column="0" Grid.Row="1" Margin="12,12,12,20" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="48" />
+                            <RowDefinition Height="48" />
+                            <RowDefinition Height="48" />
+                            <RowDefinition Height="48" />
+                            <RowDefinition Height="48" />
+                            <RowDefinition Height="48" />
+                        </Grid.RowDefinitions>
+                        <!-- Distance -->
+                        <Label Grid.Row="0" Grid.Column="0" Text="{x:Static resources:AppResource.BodyDropDistanceLabel}" Margin="8,0,8,0" VerticalOptions="CenterAndExpand" />
+                        <Entry Grid.Row="0" Grid.Column="1" x:Name="entrDISTANCE" Keyboard="Numeric" FontSize="16"
+                               TextChanged="OnDISTANCEChanged" BackgroundColor="Transparent" HorizontalTextAlignment="Start" VerticalOptions="FillAndExpand"
+                               Margin="{OnPlatform Android='0,4,4,4', iOS='0,4,0,4', UWP='0,8,0,4'}" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!-- Density Body -->
+                        <Label Grid.Row="1" Grid.Column="0" Text="{x:Static resources:AppResource.BodyDropDensityBodyLabel}" Margin="8,0,8,0" VerticalOptions="CenterAndExpand" />
+                        <Entry Grid.Row="1" Grid.Column="1" x:Name="entrDENSITYBODY" Keyboard="Numeric" FontSize="16"
+                               TextChanged="OnDENSITYBODYChanged" BackgroundColor="Transparent" HorizontalTextAlignment="Start" VerticalOptions="FillAndExpand"
+                               Margin="{OnPlatform Android='0,4,4,4', iOS='0,4,0,4', UWP='0,8,0,4'}" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!-- Density Environment -->
+                        <Label Grid.Row="2" Grid.Column="0" Text="{x:Static resources:AppResource.BodyDropDensityEnvironmentLabel}" Margin="8,0,8,0" VerticalOptions="CenterAndExpand" />
+                        <Entry Grid.Row="2" Grid.Column="1" x:Name="entrDENSITYENVIRONMENT" Keyboard="Numeric" FontSize="16"
+                               TextChanged="OnDENSITYENVIRONMENTChanged" BackgroundColor="Transparent" HorizontalTextAlignment="Start" VerticalOptions="FillAndExpand"
+                               Margin="{OnPlatform Android='0,4,4,4', iOS='0,4,0,4', UWP='0,8,0,4'}" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!-- Diameter Ball -->
+                        <Label Grid.Row="3" Grid.Column="0" Text="{x:Static resources:AppResource.BodyDropDiameterBallLabel}" Margin="8,0,8,0" VerticalOptions="CenterAndExpand" />
+                        <Entry Grid.Row="3" Grid.Column="1" x:Name="entrDIAMETERBALL" Keyboard="Numeric" FontSize="16"
+                               TextChanged="OnDIAMETERBALLChanged" BackgroundColor="Transparent" HorizontalTextAlignment="Start" VerticalOptions="FillAndExpand"
+                               Margin="{OnPlatform Android='0,4,4,4', iOS='0,4,0,4', UWP='0,8,0,4'}" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!-- Drop Body Factor -->
+                        <Label Grid.Row="4" Grid.Column="0" Text="{x:Static resources:AppResource.BodyDropFactorLabel}" Margin="8,0,8,0" VerticalOptions="CenterAndExpand" />
+                        <Entry Grid.Row="4" Grid.Column="1" x:Name="entrDROPBODYFACTOR" Keyboard="Numeric" FontSize="16"
+                               TextChanged="OnDROPBODYFACTORChanged" BackgroundColor="Transparent" HorizontalTextAlignment="Start" VerticalOptions="FillAndExpand"
+                               Margin="{OnPlatform Android='0,4,4,4', iOS='0,4,0,4', UWP='0,8,0,4'}" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!-- Speed Drop -->
+                        <Label Grid.Row="5" Grid.Column="0" Text="{x:Static resources:AppResource.BodyDropSpeedLabel}" Margin="8,0,8,0" VerticalOptions="End" />
+                        <Label Grid.Row="5" Grid.Column="1" x:Name="labSpeedDrop" Margin="{OnPlatform Android='4,12,0,0', iOS='4,12,0,0', UWP='12,12,0,0'}"
+                               FontSize="16" VerticalOptions="End" />
+                    </Grid>
+
+                    <Grid Grid.Column="0" Grid.Row="2" Margin="12,20,12,8" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="48" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <!-- Button Calculate -->
+                        <Button Grid.Row="0" Grid.Column="1" x:Name="CalculateButton" Text="{x:Static resources:AppResource.CalcButtonLab}" BackgroundColor="#515C6B"
+                                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Style="{StaticResource button_Style}" Released="OnCalculate" />
+                    </Grid>
+
+                    <!-- Formula -->
+                    <StackLayout x:Name="Formula" Grid.Column="0" Grid.Row="3" Margin="12,20,12,20" Spacing="0">
+                        <Label Text="{x:Static resources:AppResource.FormulaRittingerAbout}" FontAttributes="Bold" Margin="0,8,0,8" />
+                        <Label Text="ϑ = K x √ d х ((δ - Δ) / Δ)" FontSize="18" FontAttributes="Bold" Margin="0,8,0,0" />
+                        <Label Text="{x:Static resources:AppResource.BodyDropFormulaFactor}" Margin="0,0,0,0" />
+                        <Label Text="{x:Static resources:AppResource.BodyDropFormulaDiameterBall}" Margin="0,0,0,0" />
+                        <Label Text="{x:Static resources:AppResource.BodyDropFormulaDensityBody}" Margin="0,0,0,0" />
+                        <Label Text="{x:Static resources:AppResource.BodyDropFormulaDensityEnvironment}" Margin="0,0,0,0" />
+                    </StackLayout>
+
+                </Grid>
+            </ScrollView>
+        </StackLayout>
+
+        <StackLayout Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="indicator" IsVisible="{Binding Source={x:Reference ballMovePage}, Path=IsBusy}"
+                               IsRunning="{Binding Source={x:Reference ballMovePage}, Path=IsBusy}" Color="DarkOrange" HeightRequest="48" WidthRequest="48" BackgroundColor="Transparent" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

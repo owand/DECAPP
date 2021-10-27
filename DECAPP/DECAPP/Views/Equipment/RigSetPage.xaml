@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:DECAPP.Resources"
+             xmlns:services="clr-namespace:DECAPP.Services"
+             x:Class="DECAPP.Views.Equipment.RigSetPage"
+             Title="{x:Static resources:AppResource.TitleRigSet}"
+             x:Name="rigSetPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="Style" Value="{DynamicResource labelStyle}" />
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="Style" Value="{DynamicResource editorStyle}" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Style" Value="{DynamicResource entryStyle}" />
+            </Style>
+            <Style TargetType="Frame">
+                <Setter Property="Style" Value="{StaticResource frameStyle}" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Style" Value="{StaticResource buttonStyle}" />
+            </Style>
+            <Style TargetType="Picker">
+                <Setter Property="Style" Value="{DynamicResource pickerStyle}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="tbFilter" Priority="0" Order="Primary" Clicked="OpenFilter">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="{x:StaticResource MaterialIcons}" Glyph="{StaticResource FilterIcon}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <StackLayout Spacing="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Background_Dark}, Light={StaticResource Background_Light}}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" >
+            <!-- Header - CommandBar -->
+            <Grid BackgroundColor="#515C6B" ColumnSpacing="0" RowSpacing="0" HeightRequest="48" MinimumHeightRequest="48" ColumnDefinitions="*, *">
+                <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" Spacing="0">
+                    <!-- EditCommandBar -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="0" >
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <Button x:Name="EditButton" Text="{StaticResource EditIcon}" Released="OnEdit" />
+                        <Button x:Name="AddButton" Text="{StaticResource AddIcon}" Released="OnAdd" />
+                        <Button x:Name="DeleteButton" Text="{StaticResource DeleteIcon}" Released="OnDelete" />
+                    </StackLayout>
+                    <!-- SaveCommandBar -->
+                    <StackLayout x:Name="SaveCommandBar" Orientation="Horizontal" HorizontalOptions="End" Spacing="0" IsVisible="False" >
+                        <Button Text="{StaticResource SaveIcon}" Released="OnSave" >
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference picRIGTYPE}, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference picUNITGROUP}, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference picUNITNAME}, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="{StaticResource CancelIcon}" Released="OnCancel" />
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+            <!-- FilterBar -->
+            <StackLayout x:Name="FilterBar" BackgroundColor="#1F252C" VerticalOptions="Start" Spacing="0"
+                         Orientation="{x:OnIdiom Tablet='Horizontal', Desktop='Horizontal', Phone='Vertical'}" IsVisible="False" >
+                <StackLayout.Triggers>
+                    <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                        <Setter Property="InputTransparent" Value="False" />
+                    </DataTrigger>
+                </StackLayout.Triggers>
+                <!-- Type Filter -->
+                <StackLayout x:Name="picFilterType" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Spacing="0"
+                             HeightRequest="{StaticResource HeaderFilterHeight}" MinimumHeightRequest="{StaticResource HeaderFilterHeight}">
+                    <Picker x:Name="picFILTERTYPE" SelectedIndexChanged="OnFilterType" Style="{StaticResource filterPickerStyle}"
+                            ItemsSource="{Binding TypeList}" ItemDisplayBinding="{Binding TYPENAME}"
+                            Title="{OnPlatform Android={x:Static resources:AppResource.FilterType}, iOS={x:Static resources:AppResource.FilterType}}" />
+                    <Button Text="{StaticResource FilterCancelIcon}" Released="OnCancelFilterType" 
+                            Style="{DynamicResource buttonFilterStyle}" VerticalOptions="CenterAndExpand">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference picFILTERTYPE}, Path=SelectedIndex, Mode=OneWay}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </StackLayout>
+                <!-- Group Filter -->
+                <StackLayout x:Name="picFilterGroup" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Spacing="0"
+                             HeightRequest="{StaticResource HeaderFilterHeight}" MinimumHeightRequest="{StaticResource HeaderFilterHeight}">
+                    <Picker x:Name="picFILTERGROUP" SelectedIndexChanged="OnFilterGroup" Style="{StaticResource filterPickerStyle}"
+                            ItemsSource="{Binding GroupList}" ItemDisplayBinding="{Binding GROUPNAME}"
+                            Title="{OnPlatform Android={x:Static resources:AppResource.HeaderType}, iOS={x:Static resources:AppResource.HeaderType}}" />
+                    <Button x:Name="btCancelFilterGroup" Text="{StaticResource FilterCancelIcon}" Released="OnCancelFilterGroup" 
+                            Style="{DynamicResource buttonFilterStyle}" VerticalOptions="CenterAndExpand">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference picFILTERGROUP}, Path=SelectedIndex, Mode=OneWay}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </StackLayout>
+            </StackLayout>
+
+            <!--Content-->
+            <Grid x:Name="Body" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{x:OnIdiom Phone=0}" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!-- Detail -->
+                <ScrollView x:Name="Detail" Grid.Row="0" VerticalOptions="FillAndExpand">
+                    <Grid Margin="12,12,8,12" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" RowDefinitions="48, 48, 48, 48, 48, 48, *, auto" InputTransparent="True">
+                        <Grid.Triggers>
+                            <DataTrigger TargetType="Grid" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                                <Setter Property="InputTransparent" Value="False" />
+                            </DataTrigger>
+                        </Grid.Triggers>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="{x:OnIdiom Tablet=360, Desktop=360, Phone=*}" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Rig Type -->
+                        <Label Grid.Row="0" Grid.Column="0" x:Name="labRigType" Margin="4,12,0,12" Text="{x:Static resources:AppResource.labelRig}" TextColor="#515C6B" />
+                        <Picker Grid.Row="0" Grid.Column="1" x:Name="picRIGTYPE" SelectedIndex="{Binding IndexTypeList}"
+                                ItemsSource="{Binding TypeList}" SelectedItem="{Binding SelectItem.TYPEID, Mode=TwoWay}" ItemDisplayBinding="{Binding TYPENAME}" />
+
+                        <!-- Unit Group -->
+                        <Label Grid.Row="1" Grid.Column="0" x:Name="labUnitGroup" Margin="4,12,0,12" Text="{x:Static resources:AppResource.Type}" TextColor="#515C6B" />
+                        <Picker Grid.Row="1" Grid.Column="1" x:Name="picUNITGROUP" SelectedIndex="{Binding IndexGroupList}"
+                                ItemsSource="{Binding GroupList}" SelectedItem="{Binding SelectItem.GROUPID, Mode=TwoWay}" ItemDisplayBinding="{Binding GROUPNAME}" />
+
+                        <!-- Unit -->
+                        <Label Grid.Row="2" Grid.Column="0" x:Name="labUnit" Margin="4,12,0,12" Text="{x:Static resources:AppResource.Name}" TextColor="#515C6B" />
+                        <Picker Grid.Row="2" Grid.Column="1" x:Name="picUNITNAME" SelectedIndex="{Binding IndexUnitList}"
+                                ItemsSource="{Binding UnitList}" SelectedItem="{Binding SelectItem.UNITID, Mode=TwoWay}" ItemDisplayBinding="{Binding UNITNAME}" />
+
+                        <!-- Amt -->
+                        <Label Grid.Row="3" Grid.Column="0" x:Name="labAmt" Margin="4,12,0,12" Text="{x:Static resources:AppResource.labelAmt}" TextColor="#515C6B" />
+                        <Entry Grid.Row="3" Grid.Column="1" x:Name="editAMT" Text="{Binding SelectItem.AMT}" Keyboard="Numeric">
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+
+                        <!-- Transport -->
+                        <Label Grid.Row="4" Grid.Column="0" x:Name="labTransport" Margin="4,12,0,12" Text="{x:Static resources:AppResource.labelAmtTransport}" TextColor="#515C6B" />
+                        <Entry Grid.Row="4" Grid.Column="1" x:Name="editTRANSPORT" Text="{Binding SelectItem.TRANSPORT}" Keyboard="Numeric">
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+
+                        <!-- Description -->
+                        <Label Grid.Row="5" Grid.Column="0" Margin="4,12,0,12" Text="{x:Static resources:AppResource.Note}" TextColor="#515C6B" />
+                        <Editor Grid.Row="5" Grid.Column="1" Text="{Binding SelectItem.DESCRIPTION}" Placeholder="{x:Static resources:AppResource.HeaderNote}"/>
+                    </Grid>
+                </ScrollView>
+
+                <!-- Navigation items-->
+                <StackLayout Grid.Row="1" x:Name="Master" BackgroundColor="#1F252C" VerticalOptions="FillAndExpand" Spacing="0" >
+                    <StackLayout.Triggers>
+                        <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </StackLayout.Triggers>
+                    <!-- Header ListView -->
+                    <Grid x:Name="MasterHeader" BackgroundColor="#2D353E" ColumnSpacing="0" RowSpacing="0" HeightRequest="48" MinimumHeightRequest="48" ColumnDefinitions="1*, 1*, 1*, 0.35*">
+                        <Label Grid.Column="0" Text="{x:Static resources:AppResource.HeaderRig}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" />
+                        <Label Grid.Column="1" Text="{x:Static resources:AppResource.HeaderType}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" />
+                        <Label Grid.Column="2" Text="{x:Static resources:AppResource.HeaderName}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" />
+                        <Label Grid.Column="3" Text="{x:Static resources:AppResource.HeaderAmt}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" />
+                    </Grid>
+                    <!-- Master ListView -->
+                    <ListView x:Name="MasterContent" HasUnevenRows="True" ItemsSource="{Binding Collection}" BackgroundColor="Transparent"
+                              ItemTapped="OnTapped" ItemSelected="OnSelection" Margin="0,1,0,0"
+                              SeparatorVisibility="Default" SeparatorColor="#515C6B" CachingStrategy="RecycleElement" SelectedItem="{Binding SelectItem, Mode=TwoWay}">
+                        <!-- ListView Template -->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Spacing="0" HeightRequest="48">
+                                        <Grid VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="1*, 1*, 1*, 0.35*">
+                                            <Label Grid.Column="0" x:Name="RigType" Text="{Binding RigTypes.TYPENAME}" Margin="4,4,4,4" MaxLines="2"
+                                                   LineBreakMode="TailTruncation" Style="{DynamicResource labelTableStyle}" />
+                                            <Label Grid.Column="1" x:Name="UnitGroup" Text="{Binding UnitGroups.GROUPNAME}" Style="{StaticResource labelTableStyle}" />
+                                            <Label Grid.Column="2" x:Name="Unit" Text="{Binding UnitList.UNITNAME}" Margin="4,4,4,4" MaxLines="2"
+                                                   LineBreakMode="TailTruncation" Style="{DynamicResource labelTableStyle}" />
+                                            <Label Grid.Column="3" x:Name="Amt" Text="{Binding AMT}" Style="{StaticResource labelTableStyle}" />
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="indicator" IsVisible="{Binding Source={x:Reference rigSetPage}, Path=IsBusy}"
+                               IsRunning="{Binding Source={x:Reference rigSetPage}, Path=IsBusy}" Color="DarkOrange" HeightRequest="48" WidthRequest="48" BackgroundColor="Transparent" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

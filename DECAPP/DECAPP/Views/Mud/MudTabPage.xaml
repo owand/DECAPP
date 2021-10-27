@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:views="clr-namespace:DECAPP.Views.Mud"
+            xmlns:resources="clr-namespace:DECAPP.Resources"
+            x:Class="DECAPP.Views.Mud.MudTabPage">
+
+
+    <!--<TabbedPage.Children>
+        <views:MudCatalogPage />
+        <views:MudTypePage />
+    </TabbedPage.Children>-->
+    
+    <!--<NavigationPage Title="{x:Static resources:AppResource.TitleElementCatalog}" >
+        <x:Arguments>
+            <views:MudCatalogPage />
+        </x:Arguments>
+    </NavigationPage>-->
+    <!--<NavigationPage Title="{x:Static resources:AppResource.TitleElementGroup}" >
+        <x:Arguments>
+            <views:MudTypePage />
+        </x:Arguments>
+    </NavigationPage>-->
+
+    <TabbedPage.Children>
+        <views:MudCatalogPage />
+        <views:MudTypePage />
+    </TabbedPage.Children>
+
+</TabbedPage>

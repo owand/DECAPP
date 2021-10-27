@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:DECAPP.Resources"
+             x:Class="DECAPP.Views.BHA.BitDecodePage"
+             Title="{x:Static resources:AppResource.TitleBitDecode}"
+             x:Name="bitDecodePage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="Style" Value="{DynamicResource labelStyle}" />
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="Style" Value="{DynamicResource editorStyle}" />
+            </Style>
+            <Style TargetType="Picker">
+                <Setter Property="Style" Value="{DynamicResource pickerStyle}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <StackLayout Spacing="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Background_Dark}, Light={StaticResource Background_Light}}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" >
+            <Grid VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Help -->
+                <StackLayout Grid.Row="0" Margin="12,12,12,12" Spacing="0">
+                    <Label Text="{x:Static resources:AppResource.BitDecodeHelpTitle}" FontAttributes="Bold" Margin="0,0,0,8" />
+                    <Label Text="{x:Static resources:AppResource.BitDecodeHelp}" Margin="0,0,0,8" />
+                </StackLayout>
+
+                <Grid Grid.Row="1" Margin="12,12,12,12" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="84" />
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='300', Desktop='300', Phone='*'}" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <!-- Choice Type -->
+                    <Label x:Name="labType" Grid.Row="0" Grid.Column="0" Text="{x:Static resources:AppResource.BitType}" TextColor="#515C6B" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,8,0,8" />
+                    <Picker x:Name="picTYPENAME" Grid.Row="0" Grid.Column="1" Margin="4,8,0,8" SelectedIndexChanged="ChangeType"
+                            ItemsSource="{Binding TypePickerList}" SelectedItem="{Binding TYPEID, Mode=TwoWay}" ItemDisplayBinding="{Binding BitTypes.TYPENAME}"
+                            Title="{OnPlatform Android={x:Static resources:AppResource.HeaderType}, iOS={x:Static resources:AppResource.HeaderType}}" />
+                    <!-- Choice Symbol -->
+                    <Label x:Name="labSymbol" Grid.Row="1" Grid.Column="0" Text="{x:Static resources:AppResource.BitCode}" TextColor="#515C6B" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,8,0,8" />
+                    <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                        <Picker x:Name="pic1Symbol" Margin="4,8,0,8" SelectedIndexChanged="ChangeSymbol"
+                                ItemsSource="{Binding Code1SymbolList, Mode=TwoWay}" SelectedItem="{Binding BITCODEID, Mode=TwoWay}" ItemDisplayBinding="{Binding SYMBOL}"
+                                Title="{OnPlatform Android='#', iOS='#'}" />
+                        <Picker x:Name="pic2Symbol" Margin="4,8,0,8" SelectedIndexChanged="ChangeSymbol"
+                                ItemsSource="{Binding Code2SymbolList, Mode=TwoWay}" SelectedItem="{Binding BITCODEID, Mode=TwoWay}" ItemDisplayBinding="{Binding SYMBOL}"
+                                Title="{OnPlatform Android='#', iOS='#'}" />
+                        <Picker x:Name="pic3Symbol" Margin="4,8,0,8" SelectedIndexChanged="ChangeSymbol"
+                                ItemsSource="{Binding Code3SymbolList, Mode=TwoWay}" SelectedItem="{Binding BITCODEID, Mode=TwoWay}" ItemDisplayBinding="{Binding SYMBOL}"
+                                Title="{OnPlatform Android='#', iOS='#'}" />
+                        <Picker x:Name="pic4Symbol" Margin="4,8,0,8" SelectedIndexChanged="ChangeSymbol"
+                                ItemsSource="{Binding Code4SymbolList, Mode=TwoWay}" SelectedItem="{Binding BITCODEID, Mode=TwoWay}" ItemDisplayBinding="{Binding SYMBOL}"
+                                Title="{OnPlatform Android='#', iOS='#'}" />
+                    </StackLayout>
+                </Grid>
+
+                <!-- Header Decode Content -->
+                <Grid Grid.Row="2" x:Name="DecodeContentHeader" BackgroundColor="#515C6B" ColumnSpacing="0" RowSpacing="0"
+                      HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="48" MinimumHeightRequest="48">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="{x:Static resources:AppResource.HeaderFeature}" VerticalOptions="Center" Margin="4,4,4,4"
+                           FontSize="{OnIdiom Phone='12', Tablet='14', Desktop='14'}" TextColor="White" />
+                    <Label Grid.Column="1" Text="{x:Static resources:AppResource.HeaderDescription}" VerticalOptions="Center" Margin="4,4,4,4"
+                           FontSize="{OnIdiom Phone='12', Tablet='14', Desktop='14'}" TextColor="White" />
+                </Grid>
+
+                <!-- ListView Decode Content -->
+                <ListView Grid.Row="3" x:Name="DecodeListContent" SeparatorVisibility="None" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" x:Name="FeatureList" Text="{Binding FEATURE}" Margin="4,4,4,4" FontSize="{OnIdiom Phone='12', Tablet='14', Desktop='14'}" />
+                                    <Label Grid.Column="1" x:Name="SpecificationList" Text="{Binding SPECIFICATION}" Margin="4,4,4,4" FontSize="{OnIdiom Phone='12', Tablet='14', Desktop='14'}" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="indicator" IsVisible="{Binding Source={x:Reference bitDecodePage}, Path=IsBusy}"
+                               IsRunning="{Binding Source={x:Reference bitDecodePage}, Path=IsBusy}" Color="DarkOrange" HeightRequest="48" WidthRequest="48" BackgroundColor="Transparent" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

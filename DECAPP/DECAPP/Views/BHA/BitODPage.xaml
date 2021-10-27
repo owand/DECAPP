@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:DECAPP.Resources"
+             xmlns:local="clr-namespace:DECAPP;assembly=DECAPP"
+             xmlns:services="clr-namespace:DECAPP.Services"
+             x:Class="DECAPP.Views.BHA.BitODPage"
+             Title="{x:Static resources:AppResource.TitleBitOD}"
+             x:Name="bitODPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="Style" Value="{DynamicResource labelStyle}" />
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="Style" Value="{DynamicResource editorStyle}" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Style" Value="{DynamicResource entryStyle}" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Style" Value="{StaticResource buttonStyle}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <StackLayout Spacing="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Background_Dark}, Light={StaticResource Background_Light}}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" >
+            <!-- CommandBar -->
+            <Grid BackgroundColor="#515C6B" ColumnSpacing="0" RowSpacing="0" HeightRequest="48" MinimumHeightRequest="48" ColumnDefinitions="*, *">
+                <!-- SearchBar -->
+                <SearchBar x:Name="SearchBar" Grid.Column="0" Placeholder="{x:Static resources:AppResource.SearchBar}" Style="{StaticResource searchBarStyle}" TextChanged="OnFilter" >
+                    <SearchBar.Triggers>
+                        <DataTrigger TargetType="SearchBar" Binding="{Binding Source={x:Reference MasterContent}, Path=IsVisible}" Value="False">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="SearchBar" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </SearchBar.Triggers>
+                </SearchBar>
+                <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" Spacing="0" IsVisible="{Binding Source={x:Static local:App.ProState}}">
+                    <!-- EditCommandBar -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="0" >
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <Button x:Name="EditButton" Text="{StaticResource EditIcon}" Released="OnEdit" />
+                        <Button x:Name="AddButton" Text="{StaticResource AddIcon}" Released="OnAdd" />
+                        <Button x:Name="DeleteButton" Text="{StaticResource DeleteIcon}" Released="OnDelete" />
+                    </StackLayout>
+                    <!-- SaveCommandBar -->
+                    <StackLayout x:Name="SaveCommandBar" Orientation="Horizontal" HorizontalOptions="End" Spacing="0" IsVisible="False">
+                        <Button Text="{StaticResource SaveIcon}" Released="OnSave" >
+                            <Button.Triggers>
+                                <MultiTrigger TargetType="Button">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Source={x:Reference editBITOD}, Path=Text.Length}" Value="0" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference editBITODINCH}, Path=Text.Length}" Value="0" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </MultiTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="{StaticResource CancelIcon}" Released="OnCancel" />
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+
+            <!-- MasterHeader -->
+            <Grid BackgroundColor="#2D353E" ColumnSpacing="0" RowSpacing="0" HeightRequest="48" MinimumHeightRequest="48" ColumnDefinitions="120, 120, *">
+                <Label Grid.Column="0" Text="{x:Static resources:AppResource.HeaderBitOD}" Style="{StaticResource labelHeaderTableStyle}" Margin="8,0,0,0" VerticalOptions="Center" />
+                <Label Grid.Column="1" Text="{x:Static resources:AppResource.HeaderBitODinch}" Style="{StaticResource labelHeaderTableStyle}" Margin="8,0,0,0" VerticalOptions="Center" />
+                <Label Grid.Column="2" Text="{x:Static resources:AppResource.HeaderDescription}" Style="{StaticResource labelHeaderTableStyle}" Margin="8,0,0,0" VerticalOptions="Center" />
+            </Grid>
+
+            <!-- DetailContent -->
+            <Grid x:Name="Detail" RowSpacing="0" ColumnSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" BackgroundColor="#515C6B" IsVisible="False"
+                  HeightRequest="{OnPlatform Android=72, iOS=72, UWP=60}" MinimumHeightRequest="{OnPlatform Android=72, iOS=72, UWP=60}" ColumnDefinitions="120, 120, *">
+                <Grid.Triggers>
+                    <DataTrigger TargetType="Grid" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                        <Setter Property="IsVisible" Value="True" />
+                    </DataTrigger>
+                </Grid.Triggers>
+                <Entry Grid.Column="0" x:Name="editBITOD" Placeholder="{x:Static resources:AppResource.HeaderBitOD}" Margin="6,8,4,8" VerticalOptions="FillAndExpand" Keyboard="Numeric"
+                       Text="{Binding SelectItem.BITODNAME}" VerticalTextAlignment="Start" >
+                    <Entry.Behaviors>
+                        <services:NumericEntryBehavior />
+                    </Entry.Behaviors>
+                </Entry>
+                <Editor Grid.Column="1" x:Name="editBITODINCH" Placeholder="{x:Static resources:AppResource.HeaderBitODinch}" Margin="0,8,6,8"
+                        Text="{Binding SelectItem.BITODINCH}" VerticalOptions="FillAndExpand" />
+                <Editor Grid.Column="2" Placeholder="{x:Static resources:AppResource.HeaderDescription}" Margin="0,8,6,8"
+                        Text="{Binding SelectItem.DESCRIPTION}" VerticalOptions="FillAndExpand" />
+            </Grid>
+
+            <!-- MasterContent -->
+            <ListView x:Name="MasterContent" HasUnevenRows="True" ItemsSource="{Binding Collection}" BackgroundColor="Transparent" ItemSelected="OnSelection" Margin="0,1,0,0"
+                      SeparatorVisibility="Default" SeparatorColor="#515C6B" CachingStrategy="RecycleElement" SelectedItem="{Binding SelectItem, Mode=TwoWay}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" HeightRequest="48" MinimumHeightRequest="48"
+                                  BackgroundColor="Transparent" ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="120, 120">
+                                <Grid.Triggers>
+                                    <DataTrigger TargetType="Grid" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                                        <Setter Property="InputTransparent" Value="False" />
+                                    </DataTrigger>
+                                </Grid.Triggers>
+                                <Label Grid.Column="0" x:Name="labBITOD" Text="{Binding BITODNAME}" TextColor="{AppThemeBinding Dark={StaticResource TextColor_Dark}, Light={StaticResource TextColor_Light}}"
+                                       Style="{StaticResource labelTableStyle}" VerticalTextAlignment="Center" Margin="8,8,8,8" />
+                                <Label Grid.Column="1" x:Name="labBITODINCH" Text="{Binding BITODINCH}" Style="{StaticResource labelTableStyle}"
+                                       VerticalTextAlignment="Center" Margin="8,8,8,8" TextColor="{AppThemeBinding Dark={StaticResource TextColor_Dark}, Light={StaticResource TextColor_Light}}" />
+                                <Label Grid.Column="2" x:Name="labDESCRIPTION" Text="{Binding DESCRIPTION}"
+                                       TextColor="{AppThemeBinding Dark={StaticResource TextColor_Dark}, Light={StaticResource TextColor_Light}}"
+                                       Style="{DynamicResource CustomLabelTableStyle}" MaxLines="2" VerticalTextAlignment="Start" Margin="8,8,8,8" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+        <StackLayout Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="indicator" IsVisible="{Binding Source={x:Reference bitODPage}, Path=IsBusy}"
+                               IsRunning="{Binding Source={x:Reference bitODPage}, Path=IsBusy}" Color="DarkOrange" HeightRequest="48" WidthRequest="48" BackgroundColor="Transparent" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

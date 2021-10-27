@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:DECAPP.Resources"
+             xmlns:services="clr-namespace:DECAPP.Services"
+             x:Class="DECAPP.Views.Equipment.FuelDenCalcPage"
+             Title="{x:Static resources:AppResource.TitleFuelDenCalc}"
+             x:Name="fuelDenCalcPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="Style" Value="{DynamicResource labelStyle}" />
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="Style" Value="{DynamicResource editorStyle}" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Style" Value="{DynamicResource entryStyle}" />
+            </Style>
+            <Style TargetType="Frame">
+                <Setter Property="Style" Value="{StaticResource frameStyle}" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Style" Value="{StaticResource buttonStyle}" />
+            </Style>
+            <Style TargetType="Picker">
+                <Setter Property="Style" Value="{DynamicResource pickerStyle}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <StackLayout Spacing="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Background_Dark}, Light={StaticResource Background_Light}}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" >
+            <!--Header-->
+            <Grid x:Name="Header" ColumnSpacing="0" RowSpacing="0" BackgroundColor="#515C6B" HeightRequest="48" MinimumHeightRequest="48" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{x:OnIdiom Tablet='500', Desktop='500', Phone='*'}" />
+                    <ColumnDefinition Width="{x:OnIdiom Tablet='*', Desktop='*', Phone='0'}" />
+                </Grid.ColumnDefinitions>
+                <!--Header Results-->
+                <Grid Grid.Column="0" ColumnSpacing="0" RowSpacing="0"  ColumnDefinitions="*, auto, auto">
+                    <Label Grid.Column="0" Text="{x:Static resources:AppResource.DensityResultLabel}" FontSize="{OnPlatform Android='14', iOS='14', UWP='16'}" TextColor="White"
+                           VerticalOptions="CenterAndExpand" LineBreakMode="WordWrap" Margin="{OnPlatform Android='4,4,8,4', iOS='4,4,8,4', UWP='12,0,8,4'}" />
+                    <Label Grid.Column="1" x:Name="resultDENSITY" FontAttributes="Bold" TextColor="DarkOrange"
+                           Margin="{OnPlatform Android='8,4,16,4', iOS='8,4,16,4', UWP='12,0,16,4'}"
+                           VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" FontSize="20" />
+                    <!-- CancelCommandBar -->
+                    <StackLayout Grid.Column="2" x:Name="CancelCommandBar" Orientation="Horizontal" HorizontalOptions="End" Spacing="0"/>
+                </Grid>
+            </Grid>
+
+            <!--Content-->
+            <ScrollView VerticalOptions="FillAndExpand" >
+                <Grid x:Name="FormulaContent" ColumnSpacing="0" RowSpacing="0" VerticalOptions="FillAndExpand" RowDefinitions="auto, auto, auto, auto, *">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='500', Desktop='500', Phone='*'}" />
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='*', Desktop='*', Phone='0'}" />
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='500', Desktop='500', Phone='0'}" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Formula parameters -->
+                    <Grid Grid.Column="0" Grid.Row="0" Margin="8,12,12,8" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                          ColumnDefinitions="2*, 1*" RowDefinitions="48, 48, 48">
+                        <!-- Density -->
+                        <Label Grid.Row="0" Grid.Column="0" Text="{x:Static resources:AppResource.DensityCalcLabel}" Margin="8,0,8,0" VerticalOptions="CenterAndExpand" />
+                        <Entry Grid.Row="0" Grid.Column="1" x:Name="entrDENSITY" Keyboard="Numeric" FontSize="16" Text=""
+                               TextChanged="OnDENSITYChanged" BackgroundColor="Transparent" HorizontalTextAlignment="Start" VerticalOptions="FillAndExpand"
+                               Margin="{OnPlatform Android='0,4,4,4', iOS='0,4,0,4', UWP='0,8,0,4'}" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!-- Temp -->
+                        <Label Grid.Row="1" Grid.Column="0" Text="{x:Static resources:AppResource.TempCalcLabel}" Margin="8,0,8,0" VerticalOptions="CenterAndExpand" />
+                        <Entry Grid.Row="1" Grid.Column="1" x:Name="entrTEMP" Keyboard="Numeric" FontSize="16" Text=""
+                               TextChanged="OnTEMPChanged" BackgroundColor="Transparent" HorizontalTextAlignment="Start" VerticalOptions="FillAndExpand"
+                               Margin="{OnPlatform Android='0,4,4,4', iOS='0,4,0,4', UWP='0,8,0,4'}" >
+                            <Entry.Behaviors>
+                                <services:NumericEntryBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!-- Base Temp -->
+                        <Label Grid.Row="2" Grid.Column="0" Text="{x:Static resources:AppResource.TempBaseCalcLabel}" Margin="8,0,8,0" VerticalOptions="CenterAndExpand" />
+                        <Picker Grid.Row="2" Grid.Column="1" x:Name="picTEMP" SelectedIndexChanged="OnBaseTEMPChanged" VerticalOptions="FillAndExpand"
+                                ItemsSource="{Binding BaseTempList}" SelectedIndex="{Binding BaseTemp}" ItemDisplayBinding="{Binding BASETEMP}"
+                                Title="{OnPlatform Android={x:Static resources:AppResource.TempBaseTitle}, iOS={x:Static resources:AppResource.TempBaseTitle}}"
+                                Margin="{OnPlatform Android='0,4,4,4', iOS='0,4,0,4', UWP='0,8,0,4'}" FontSize="16" >
+                            <Picker.Triggers>
+                                <Trigger TargetType="Picker" Property="SelectedItem" Value="{x:Null}">
+                                    <Setter Property="BackgroundColor" Value="Red" />
+                                </Trigger>
+                                <Trigger TargetType="Picker" Property="SelectedIndex" Value="0">
+                                    <Setter Property="BackgroundColor" Value="Red" />
+                                </Trigger>
+                            </Picker.Triggers>
+                        </Picker>
+                    </Grid>
+
+                    <!-- Metod to correct density -->
+                    <Label Grid.Column="0" Grid.Row="1" Margin="16,8,12,0" Text="{x:Static resources:AppResource.DensityMetodLabel}"
+                           TextColor="#515C6B" VerticalOptions="CenterAndExpand" />
+                    <Grid Grid.Column="0" Grid.Row="2" Margin="8,0,12,8" ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="40, *" RowDefinitions="44, 44" >
+                        <!-- metric observed -->
+                        <CheckBox Grid.Row="0" Grid.Column="0" x:Name="metricObserved" VerticalOptions="CenterAndExpand" HorizontalOptions="Start"
+                                  IsChecked="true" Color="#515C6B" CheckedChanged="SwitchObserved" IsEnabled="False"
+                                  Margin="{OnPlatform Android='0,4,4,0', iOS='0,4,4,0', UWP='8,4,4,0'}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{x:Static resources:AppResource.metricObservedLabel}" Margin="6,4,2,0" VerticalOptions="CenterAndExpand"
+                               MaxLines="2" LineBreakMode="TailTruncation"/>
+                        <!-- metric base -->
+                        <CheckBox Grid.Row="1" Grid.Column="0" x:Name="metricBase" VerticalOptions="CenterAndExpand" HorizontalOptions="Start"
+                                  IsChecked="false" Color="#515C6B" CheckedChanged="SwitchBase"
+                                  Margin="{OnPlatform Android='0,4,4,0', iOS='0,4,4,0', UWP='8,4,4,0'}" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{x:Static resources:AppResource.metricBaseLabel}" Margin="6,4,2,0" VerticalOptions="CenterAndExpand"
+                               MaxLines="2" LineBreakMode="TailTruncation"/>
+                    </Grid>
+
+                    <Grid Grid.Column="0" Grid.Row="3" Margin="8,12,12,8" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                          ColumnDefinitions="*, *" RowDefinitions="48, 20, 48, *">
+                        <!-- Energy -->
+                        <Label Grid.Row="0" Grid.Column="0" Text="{x:Static resources:AppResource.EnergyLabel}" Margin="8,0,8,0" VerticalOptions="CenterAndExpand" >
+                        </Label>
+                        <Picker Grid.Row="0" Grid.Column="1" x:Name="picENERGY" SelectedIndexChanged="OnENERGYChanged" VerticalOptions="FillAndExpand"
+                                ItemsSource="{Binding EnergyList}" SelectedIndex="{Binding Energy}" ItemDisplayBinding="{Binding ENERGYNAME}"
+                                Title="{OnPlatform Android={x:Static resources:AppResource.TitleEnergy}, iOS={x:Static resources:AppResource.TitleEnergy}}"
+                                Margin="{OnPlatform Android='0,4,4,4', iOS='0,4,0,4', UWP='0,8,0,4'}" >
+                            <Picker.Triggers>
+                                <Trigger TargetType="Picker" Property="SelectedItem" Value="{x:Null}">
+                                    <Setter Property="BackgroundColor" Value="Red" />
+                                </Trigger>
+                                <Trigger TargetType="Picker" Property="SelectedIndex" Value="0">
+                                    <Setter Property="BackgroundColor" Value="Red" />
+                                </Trigger>
+                            </Picker.Triggers>
+                        </Picker>
+                        <!-- Button Calculate -->
+                        <Button Grid.Row="2" Grid.Column="0" Text="Cancel" BackgroundColor="#515C6B" Margin="0,0,4,0"
+                                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Style="{StaticResource button_Style}" Released="OnCancel" />
+                        <Button Grid.Row="2" Grid.Column="1" x:Name="CalculateButton" Text="{x:Static resources:AppResource.CalcButtonLab}" BackgroundColor="#515C6B" Margin="4,0,0,0"
+                                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Style="{StaticResource button_Style}" Released="OnCalculate" >
+                            <Button.Triggers>
+                                <MultiTrigger TargetType="Button">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Source={x:Reference entrDENSITY}, Path=Text.Length, Mode=OneWay}" Value="0" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference entrTEMP}, Path=Text.Length, Mode=OneWay}" Value="0" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference picTEMP}, Path=SelectedIndex}" Value="-1" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference picENERGY}, Path=SelectedIndex}" Value="-1" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </MultiTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </Grid>
+
+                </Grid>
+            </ScrollView>
+        </StackLayout>
+
+        <StackLayout Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="indicator" IsVisible="{Binding Source={x:Reference fuelDenCalcPage}, Path=IsBusy}"
+                               IsRunning="{Binding Source={x:Reference fuelDenCalcPage}, Path=IsBusy}" Color="DarkOrange" HeightRequest="48" WidthRequest="48" BackgroundColor="Transparent" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

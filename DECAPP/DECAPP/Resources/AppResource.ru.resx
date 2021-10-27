@@ -1,0 +1,1055 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Abbreviation" xml:space="preserve">
+    <value>Аббревиатура:</value>
+    <comment>Заголовок для аббревиатуры</comment>
+  </data>
+  <data name="AboutApp" xml:space="preserve">
+    <value>Информация о приложении</value>
+    <comment>Заголовок для информации о приложении</comment>
+  </data>
+  <data name="Adblock" xml:space="preserve">
+    <value>Поддержать проект</value>
+    <comment>Текст ссылки для отключения рекламы</comment>
+  </data>
+  <data name="AdblockAbout" xml:space="preserve">
+    <value>Поддержать проект. Отключить рекламу в приложении.</value>
+    <comment>Текст ссылки для отключения рекламы</comment>
+  </data>
+  <data name="Ads" xml:space="preserve">
+    <value>Реклама:</value>
+    <comment>Заголовок для рекламы</comment>
+  </data>
+  <data name="Analog" xml:space="preserve">
+    <value>Аналоги:</value>
+    <comment>Заголовок для аналогов</comment>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Буровое оборудование и материалы</value>
+    <comment>Краткое описание</comment>
+  </data>
+  <data name="AuthenticationMicrosoft" xml:space="preserve">
+    <value>Процесс авторизации учетной записи Майкрософт</value>
+    <comment>Заголовок для кнопки - Сохранить копию базы данных</comment>
+  </data>
+  <data name="AuthenticationTitle" xml:space="preserve">
+    <value>Резервное копирование и востановление данных</value>
+    <comment>Заголовок раздела копирование и востановление данных</comment>
+  </data>
+  <data name="AuthorApp" xml:space="preserve">
+    <value>Разработчик</value>
+    <comment>Заголовок для Разработчик</comment>
+  </data>
+  <data name="AuthorName" xml:space="preserve">
+    <value>Андрей Овчаренко</value>
+    <comment>Имя разработчика</comment>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Авторство</value>
+    <comment>Заголовок раздела Авторство</comment>
+  </data>
+  <data name="BackupError" xml:space="preserve">
+    <value>При выполнении операции возникла ошибка. Выполните операцию позже или перезапустите приложение и повторите операцию.</value>
+    <comment>Текст ошибки при сохранении или востановлении базы данных</comment>
+  </data>
+  <data name="BitCode" xml:space="preserve">
+    <value>Код долота:</value>
+    <comment>Заголовок для кода долота</comment>
+  </data>
+  <data name="BitCodeSerial" xml:space="preserve">
+    <value>Позиция кода:</value>
+    <comment>Заголовок для позиции кода</comment>
+  </data>
+  <data name="BitCodeSerialHeader" xml:space="preserve">
+    <value>№
+п/п</value>
+    <comment>Заголовок для позиции кода в шапке таблицы</comment>
+  </data>
+  <data name="BitCodeSymbol" xml:space="preserve">
+    <value>Символ кода:</value>
+    <comment>Заголовок для позиции символа кода долота</comment>
+  </data>
+  <data name="BitCodeSymbolHeader" xml:space="preserve">
+    <value>Символ
+кода</value>
+    <comment>Заголовок для позиции символа кода долота в шапке таблицы</comment>
+  </data>
+  <data name="BitDecodeHelp" xml:space="preserve">
+    <value>Выберите вид бурового долота и в каждой из четырех ячеек необходимый символ шифра бурового долота.</value>
+    <comment>Вторая строка инструкции для расшифровки кода долота</comment>
+  </data>
+  <data name="BitDecodeHelpTitle" xml:space="preserve">
+    <value>Для расшифровки кода буровых долот:</value>
+    <comment>Первая строка инструкции для расшифровки кода долота</comment>
+  </data>
+  <data name="BitType" xml:space="preserve">
+    <value>Вид долота:</value>
+    <comment>Заголовок для группы долот</comment>
+  </data>
+  <data name="Density" xml:space="preserve">
+    <value>Плотность, г/см3:</value>
+    <comment>Заголовок для плотности</comment>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание:</value>
+    <comment>Заголовок для описания</comment>
+  </data>
+  <data name="DBDownload" xml:space="preserve">
+    <value>Восстановление базы данных из копии</value>
+    <comment>Заголовок для кнопки - Сохранить копию базы данных</comment>
+  </data>
+  <data name="Elongation" xml:space="preserve">
+    <value>Удлинение, %:</value>
+    <comment>Заголовок для удлинения</comment>
+  </data>
+  <data name="LanguageEng" xml:space="preserve">
+    <value>Английский</value>
+    <comment>Английский язык приложения</comment>
+  </data>
+  <data name="Feature" xml:space="preserve">
+    <value>Характеристика:</value>
+    <comment>Заголовок для характеристики</comment>
+  </data>
+  <data name="FilterOD" xml:space="preserve">
+    <value>Фильтр по Ø</value>
+    <comment>Заголовок для Placeholder-а фильтра по Ø</comment>
+  </data>
+  <data name="FilterType" xml:space="preserve">
+    <value>Фильтр по группе</value>
+    <comment>Заголовок для Placeholder-а фильтра по группе</comment>
+  </data>
+  <data name="Formula" xml:space="preserve">
+    <value>Формула:</value>
+    <comment>Заголовок для формулы</comment>
+  </data>
+  <data name="FormulaCaverCoeff" xml:space="preserve">
+    <value>коэффициент кавернозности (обычно 1,05–1,4)</value>
+    <comment>Описание коэффициента кавернозности</comment>
+  </data>
+  <data name="FormulaCcomp" xml:space="preserve">
+    <value>коэффициент сжимаемости продавочной жидкости (обычно 1,02 – 1,05)</value>
+    <comment>Описание коэффициента сжимаемости продавочной жидкости</comment>
+  </data>
+  <data name="FormulaCementVolAbout" xml:space="preserve">
+    <value>Объём цементного раствора Vcs (в м3) определяется как сумма объёма кольцевого пространства в межтрубном пространстве, объёма кольцевого пространства между стенками скважины и наружными стенками обсадной колонны, с учётом коэффициента кавернозности, и объёма цементного стакана.</value>
+    <comment>Описание формулы для расчета объема тампонажных материалов</comment>
+  </data>
+  <data name="FormulaCementVolume" xml:space="preserve">
+    <value>Объём цементного раствора, в м3</value>
+    <comment>Итог формулы расчета объема цемента</comment>
+  </data>
+  <data name="FormulaCoeffTS" xml:space="preserve">
+    <value>коэффициент запаса (обычно 1,05)</value>
+    <comment>Описание коэффициента запаса</comment>
+  </data>
+  <data name="FormulaDoutCasing" xml:space="preserve">
+    <value>наружный Ø цементируемой обсадной колонны, мм</value>
+    <comment>Описание наружного диаметра обсадной колонны</comment>
+  </data>
+  <data name="FormulaDwell" xml:space="preserve">
+    <value>Ø открытого ствола скважины, мм</value>
+    <comment>Описание диаметра открытого ствола скважины</comment>
+  </data>
+  <data name="FormulaError" xml:space="preserve">
+    <value>Данные не верны или отсутствуют!</value>
+    <comment>Сообщение об ошибке в формуле</comment>
+  </data>
+  <data name="FormulaHCP" xml:space="preserve">
+    <value>высота цементного стакана в обсадной колонне, м</value>
+    <comment>Высота цементного стакана в обсадной колонне</comment>
+  </data>
+  <data name="FormulaLCasing" xml:space="preserve">
+    <value>длина цементируемой обсадной колонны, м</value>
+    <comment>Описание глубины скважины по стволу</comment>
+  </data>
+  <data name="FormulaLPrevColumn" xml:space="preserve">
+    <value>глубина спуска предыдущей колонны по стволу, м</value>
+    <comment>Описание глубины предыдущей колонны</comment>
+  </data>
+  <data name="FormulaODPrevCasing" xml:space="preserve">
+    <value>наружный Ø предыдущей обсадной колонны, мм</value>
+    <comment>наружный диаметр предыдущей обсадной колонны</comment>
+  </data>
+  <data name="FormulaPrevHCP" xml:space="preserve">
+    <value>высота подъёма цементного раствора от башмака предыдущей обсадной колонны по стволу, м</value>
+    <comment>Высота цементного стакана предыдущей обсадной колонны</comment>
+  </data>
+  <data name="FormulaSpacerVAbout" xml:space="preserve">
+    <value>Объём продавочной жидкости Vsp (в м3) определяется как объём внутреннего пространства цементируемой обсадной колонны, с учётом коэффициента сжатия продавочной жидкости, объёма цементного стакана и объёма трубопроводов, связывающих цементировочные агрегаты с цементировочной головкой.</value>
+    <comment>Описание формулы для расчета объема продавочной жидкости</comment>
+  </data>
+  <data name="FormulaTcasing" xml:space="preserve">
+    <value>толщина стенки цементируемой обсадной колонны, мм</value>
+    <comment>толщина стенки цементируемой обсадной колонны</comment>
+  </data>
+  <data name="FormulaTPrevCasing" xml:space="preserve">
+    <value>толщина стенки предыдущей обсадной колонны, мм</value>
+    <comment>толщина стенки предыдущей обсадной колонны</comment>
+  </data>
+  <data name="FormulaVpline" xml:space="preserve">
+    <value>объем трубопроводов, связывающих цементировочные агрегаты с цементировочной головкой, м3, принимается равным – 0,5м3</value>
+    <comment>Описание объема трубопроводов</comment>
+  </data>
+  <data name="FormulaZero" xml:space="preserve">
+    <value>0,00</value>
+  </data>
+  <data name="Function" xml:space="preserve">
+    <value>Назначение / применение:</value>
+    <comment>Заголовок для назначения / применения</comment>
+  </data>
+  <data name="GOST" xml:space="preserve">
+    <value>ТУ, ГОСТ:</value>
+    <comment>Заголовок для ТУ, ГОСТа</comment>
+  </data>
+  <data name="Grade" xml:space="preserve">
+    <value>Группа прочности:</value>
+    <comment>Заголовок для группы прочности</comment>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Класс:</value>
+    <comment>Заголовок для класса</comment>
+  </data>
+  <data name="HeaderAbbreviation" xml:space="preserve">
+    <value>Аббревиатура</value>
+    <comment>Заголовок для аббревиатуры</comment>
+  </data>
+  <data name="HeaderAnalog" xml:space="preserve">
+    <value>Аналоги</value>
+    <comment>Заголовок для аналогов в шапке таблицы</comment>
+  </data>
+  <data name="HeaderBitOD" xml:space="preserve">
+    <value>Ø КНБК, мм</value>
+    <comment>Заголовок для Ø КНБК в шапке таблицы</comment>
+  </data>
+  <data name="HeaderBitODinch" xml:space="preserve">
+    <value>Ø КНБК, дюйм</value>
+    <comment>Заголовок для Ø КНБК в шапке таблицы</comment>
+  </data>
+  <data name="HeaderDescription" xml:space="preserve">
+    <value>Описание</value>
+    <comment>Заголовок для описания в шапке таблицы</comment>
+  </data>
+  <data name="HeaderFeature" xml:space="preserve">
+    <value>Характеристика</value>
+    <comment>Заголовок для характеристики в шапке таблицы</comment>
+  </data>
+  <data name="HeaderFeature1" xml:space="preserve">
+    <value>Характе-
+ристика</value>
+    <comment>Заголовок для характеристики в шапке таблицы</comment>
+  </data>
+  <data name="HeaderFunction" xml:space="preserve">
+    <value>Назначение / применение</value>
+    <comment>Заголовок для назначения / применения в шапке таблицы</comment>
+  </data>
+  <data name="HeaderGOST" xml:space="preserve">
+    <value>ТУ,   ГОСТ</value>
+    <comment>Заголовок для ТУ, ГОСТа</comment>
+  </data>
+  <data name="HeaderGrade" xml:space="preserve">
+    <value>Группа
+прочности</value>
+    <comment>Заголовок для группы прочности в шапке таблицы</comment>
+  </data>
+  <data name="HeaderGroup" xml:space="preserve">
+    <value>Класс</value>
+    <comment>Заголовок для класса в шапке таблицы</comment>
+  </data>
+  <data name="HeaderMassM" xml:space="preserve">
+    <value>Масса,
+кг/м</value>
+    <comment>Заголовок для массы погонного метра в шапке таблицы</comment>
+  </data>
+  <data name="HeaderMassPcs" xml:space="preserve">
+    <value>Масса,
+кг</value>
+    <comment>Заголовок для массы еденицы</comment>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Название</value>
+    <comment>Заголовок для наименования в шапке таблицы</comment>
+  </data>
+  <data name="HeaderNote" xml:space="preserve">
+    <value>Примечания</value>
+    <comment>Заголовок для примечания в шапке таблицы</comment>
+  </data>
+  <data name="HeaderODmm" xml:space="preserve">
+    <value>Ø мм</value>
+    <comment>Заголовок для диаметра в миллиметрах в шапке таблицы</comment>
+  </data>
+  <data name="HeaderODoutCoupling" xml:space="preserve">
+    <value>Ø муфт,
+мм</value>
+    <comment>Заголовок для наружного диаметра трубы в шапке таблицы</comment>
+  </data>
+  <data name="HeaderODoutPipes" xml:space="preserve">
+    <value>Ø труб,
+мм</value>
+    <comment>Заголовок для наружного диаметра трубы в шапке таблицы</comment>
+  </data>
+  <data name="HeaderPipesName" xml:space="preserve">
+    <value>Ø x стенка,
+мм</value>
+    <comment>Заголовок для наименования трубы в шапке таблицы</comment>
+  </data>
+  <data name="HeaderType" xml:space="preserve">
+    <value>Группа</value>
+    <comment>Заголовок для группы в шапке таблицы</comment>
+  </data>
+  <data name="HeaderTypePipes" xml:space="preserve">
+    <value>Вид труб</value>
+    <comment>Заголовок для Placeholder-а группы труб</comment>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Высота, мм:</value>
+    <comment>Заголовок для высоты</comment>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Изображение:</value>
+    <comment>Заголовок для изображения</comment>
+  </data>
+  <data name="inch" xml:space="preserve">
+    <value>дюймов</value>
+    <comment>Заголовок для дюймов</comment>
+  </data>
+  <data name="LanguagesApp" xml:space="preserve">
+    <value>Язык приложения</value>
+    <comment>Язык приложения</comment>
+  </data>
+  <data name="LanguagesSelect" xml:space="preserve">
+    <value>Выберите язык приложения</value>
+    <comment>Язык приложения</comment>
+  </data>
+  <data name="Length" xml:space="preserve">
+    <value>Длина, мм:</value>
+    <comment>Заголовок для длины</comment>
+  </data>
+  <data name="LexisEng" xml:space="preserve">
+    <value>АНГЛИЙСКИЙ</value>
+    <comment>Заголовок для английского языка в словаре</comment>
+  </data>
+  <data name="LexisEntry" xml:space="preserve">
+    <value>Введите определение</value>
+    <comment>Заголовок для Placeholder-а в словаре</comment>
+  </data>
+  <data name="LexisRus" xml:space="preserve">
+    <value>РУССКИЙ</value>
+    <comment>Заголовок для русского языка в словаре</comment>
+  </data>
+  <data name="MassM" xml:space="preserve">
+    <value>Масса, кг/м:</value>
+    <comment>Заголовок для массы погонного метра</comment>
+  </data>
+  <data name="MassPcs" xml:space="preserve">
+    <value>Масса, кг:</value>
+    <comment>Заголовок для массы еденицы</comment>
+  </data>
+  <data name="MassT" xml:space="preserve">
+    <value>Масса, т.:</value>
+    <comment>Заголовок для массы еденицы</comment>
+  </data>
+  <data name="messageAttention" xml:space="preserve">
+    <value>Внимание!</value>
+    <comment>Заголовок для сообщения</comment>
+  </data>
+  <data name="messageDelete" xml:space="preserve">
+    <value>Вы хотите удалить элемент?</value>
+    <comment>Заголовок для сообщения</comment>
+  </data>
+  <data name="messageError" xml:space="preserve">
+    <value>Ошибка!</value>
+    <comment>Сообщение об ошибке</comment>
+  </data>
+  <data name="messageExit" xml:space="preserve">
+    <value>Вы действительно хотите выйти из этого приложения?</value>
+    <comment>Сообщение о выходе из приложения</comment>
+  </data>
+  <data name="messageLanguage" xml:space="preserve">
+    <value>Для изменения языка необходимо перезагрузить приложение!</value>
+    <comment>Сообщение о смене языка</comment>
+  </data>
+  <data name="messageNewItem" xml:space="preserve">
+    <value>Такая запись уже существует!</value>
+    <comment>Заголовок для сообщения</comment>
+  </data>
+  <data name="messageNoActiveRecord" xml:space="preserve">
+    <value>Нет активной записи!</value>
+    <comment>Текст сообщения - Нет активной записи!</comment>
+  </data>
+  <data name="messageOk" xml:space="preserve">
+    <value>Да</value>
+    <comment>Подпись кнопки подтверждения в сообщении</comment>
+  </data>
+  <data name="messageProblemAuthenticating" xml:space="preserve">
+    <value>Проблема при аутентификации!</value>
+    <comment>Сообщение при проблеме с аутентификацией</comment>
+  </data>
+  <data name="messageSuccess" xml:space="preserve">
+    <value>Операция выполнена успешно!</value>
+    <comment>Сообщение о выполнении операции</comment>
+  </data>
+  <data name="messageSuccessAuthenticating" xml:space="preserve">
+    <value>Вы вошли в учетную запись Майкрософт!</value>
+    <comment>Сообщение о выполнении операции</comment>
+  </data>
+  <data name="messageSuccessDownload" xml:space="preserve">
+    <value>Выполнено восстановление базы данных из резервной копии!</value>
+    <comment>Сообщение о выполнении операции</comment>
+  </data>
+  <data name="messageSuccessUpload" xml:space="preserve">
+    <value>Вы создали резервную копию базы данных!</value>
+    <comment>Сообщение о выполнении операции</comment>
+  </data>
+  <data name="messageTitleAction" xml:space="preserve">
+    <value>Подтвердить действие!</value>
+    <comment>Заголовок для сообщения</comment>
+  </data>
+  <data name="messageTitleExit" xml:space="preserve">
+    <value>Выйти из приложения?</value>
+    <comment>Заголовок для сообщения о выходе из приложения</comment>
+  </data>
+  <data name="messageСancel" xml:space="preserve">
+    <value>Отмена</value>
+    <comment>Подпись кнопки отмены в сообщении</comment>
+  </data>
+  <data name="mm" xml:space="preserve">
+    <value>мм</value>
+    <comment>Заголовок для миллиметров</comment>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Наименование:</value>
+    <comment>Заголовок для наименования</comment>
+  </data>
+  <data name="NoConnected" xml:space="preserve">
+    <value>Невозможно подключиться к учетной записи!</value>
+    <comment>Текст ссылки для включения функции редактирования</comment>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Примечания:</value>
+    <comment>Заголовок для примечания</comment>
+  </data>
+  <data name="ODinsPipes" xml:space="preserve">
+    <value>Ø внутр., мм:</value>
+    <comment>Заголовок для внутреннего диаметра трубы</comment>
+  </data>
+  <data name="ODmm" xml:space="preserve">
+    <value>Ø, мм:</value>
+    <comment>Заголовок для диаметра в миллиметрах</comment>
+  </data>
+  <data name="ODoutPipes" xml:space="preserve">
+    <value>Ø наружный:</value>
+    <comment>Заголовок для наружного диаметра трубы</comment>
+  </data>
+  <data name="ODoutPipes1" xml:space="preserve">
+    <value>Ø труб</value>
+    <comment>Заголовок для Placeholder-а диаметра трубы</comment>
+  </data>
+  <data name="OSAbout" xml:space="preserve">
+    <value>Приложение на других платформах</value>
+    <comment>Заголовок о других платформах</comment>
+  </data>
+  <data name="OSAndroid" xml:space="preserve">
+    <value>Drilling eCatalog в Google Play</value>
+    <comment>Ссылка на Google Play</comment>
+  </data>
+  <data name="OSMicrosoft" xml:space="preserve">
+    <value>Drilling eCatalog в магазине Microsoft</value>
+    <comment>Ссылка на Microsoft Store</comment>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Это приложение не собирает и не хранит никакую пользовательскую информацию.</value>
+    <comment>Заявление о конфиденциальности</comment>
+  </data>
+  <data name="PrivacyApp" xml:space="preserve">
+    <value>Конфиденциальность</value>
+    <comment>Заголовок для конфиденциальности</comment>
+  </data>
+  <data name="PrivacyStatement" xml:space="preserve">
+    <value>Заявление о конфиденциальности</value>
+    <comment>Заголовок для заявления о конфиденциальности</comment>
+  </data>
+  <data name="ProStateAbout" xml:space="preserve">
+    <value>Режим Professional - включает возможность редактировать, удалять и добавлять записи в каталогах; сохранять копию базы данных в облаке OneDrive; восстанавливать базу данных из сохраненной копии  в облаке OneDrive; синхронизировать базу данных с приложением на других платформах; отключить рекламу в приложении.</value>
+    <comment>Текст ссылки для включения функции редактирования</comment>
+  </data>
+  <data name="ProStateOn" xml:space="preserve">
+    <value>Включить режим Professional</value>
+    <comment>Текст ссылки для включения функции редактирования</comment>
+  </data>
+  <data name="RockSort" xml:space="preserve">
+    <value>Категория пород:</value>
+    <comment>Заголовок для видов пород</comment>
+  </data>
+  <data name="LanguageRus" xml:space="preserve">
+    <value>Русский</value>
+    <comment>Русский язык приложения</comment>
+  </data>
+  <data name="SearchBar" xml:space="preserve">
+    <value>Поиск</value>
+    <comment>Заголовок для Placeholder-а поиска</comment>
+  </data>
+  <data name="SettingsApp" xml:space="preserve">
+    <value>Параметры</value>
+    <comment>Заголовок для параметров</comment>
+  </data>
+  <data name="Strength" xml:space="preserve">
+    <value>Текучесть, Мпа:</value>
+    <comment>Заголовок для текучести</comment>
+  </data>
+  <data name="StrengthMax" xml:space="preserve">
+    <value>Макс. текучесть, Мпа:</value>
+    <comment>Заголовок для текучести</comment>
+  </data>
+  <data name="StrengthMin" xml:space="preserve">
+    <value>Мин-я текучесть, Мпа:</value>
+    <comment>Заголовок для текучести</comment>
+  </data>
+  <data name="Tensile" xml:space="preserve">
+    <value>Max прочность, Мпа:</value>
+    <comment>Заголовок для прочности</comment>
+  </data>
+  <data name="ThemesApp" xml:space="preserve">
+    <value>Выберите тему приложения</value>
+    <comment>Тема приложения</comment>
+  </data>
+  <data name="ThemesDarkName" xml:space="preserve">
+    <value>Темная</value>
+    <comment>Темная тема приложения</comment>
+  </data>
+  <data name="ThemesLightName" xml:space="preserve">
+    <value>Светлая</value>
+    <comment>Светлая тема приложения</comment>
+  </data>
+  <data name="TitleAggregatGroup" xml:space="preserve">
+    <value>Каталог оборудования</value>
+    <comment>Заголовок группы Каталог оборудования</comment>
+  </data>
+  <data name="TitleUnitType" xml:space="preserve">
+    <value>Виды оборудования</value>
+    <comment>Заголовок страницы Группы оборудования</comment>
+  </data>
+  <data name="TitleBit" xml:space="preserve">
+    <value>Породоразрушающий инструмент</value>
+    <comment>Заголовок страницы групп породоразрушающего инструмента и диаметров</comment>
+  </data>
+  <data name="TitleBitCode" xml:space="preserve">
+    <value>Словарь кода буровых долот</value>
+    <comment>Заголовок страницы словаря кода буровых долот</comment>
+  </data>
+  <data name="TitleBitDecode" xml:space="preserve">
+    <value>Расшифровка кода буровых долот</value>
+    <comment>Заголовок страницы расшифровки кода буровых долот</comment>
+  </data>
+  <data name="TitleBHAGroup" xml:space="preserve">
+    <value>ЭЛЕМЕНТЫ КНБК</value>
+    <comment>Заголовок элементов КНБК</comment>
+  </data>
+  <data name="TitleBitOD" xml:space="preserve">
+    <value>Ø элементов КНБК</value>
+    <comment>Заголовок страницы Диаметры элементов КНБК</comment>
+  </data>
+  <data name="TitleElementGroup" xml:space="preserve">
+    <value>Группы элементов</value>
+    <comment>Заголовок страницы групп породоразрушающего инструмента</comment>
+  </data>
+  <data name="TitleCalcCement" xml:space="preserve">
+    <value>Расчет тампонажных материалов</value>
+    <comment>Заголовок страницы Расчет объема тампонажных материалов</comment>
+  </data>
+  <data name="TitleCalcCementVol" xml:space="preserve">
+    <value>Объем цемента</value>
+    <comment>Заголовок страницы Объем цемента</comment>
+  </data>
+  <data name="TitleCalcCementWeight" xml:space="preserve">
+    <value>Масса цемента</value>
+    <comment>Заголовок страницы Масса цемента</comment>
+  </data>
+  <data name="TitleCalcGroup" xml:space="preserve">
+    <value>РАСЧЕТЫ В БУРЕНИИ</value>
+    <comment>Заголовок группы Расчеты в бурении</comment>
+  </data>
+  <data name="TitleCalcSpacerVol" xml:space="preserve">
+    <value>Объем продавочной жидкости</value>
+    <comment>Заголовок страницы Объем продавочной жидкости</comment>
+  </data>
+  <data name="TitleCar" xml:space="preserve">
+    <value>Транспорт и специальная техника</value>
+    <comment>Заголовок страницы транспорта и специальной техники</comment>
+  </data>
+  <data name="TitleCarType" xml:space="preserve">
+    <value>Группы транспорта и специальной техники</value>
+    <comment>Заголовок страницы групп транспорта и специальной техники</comment>
+  </data>
+  <data name="TitleCouplingCatalog" xml:space="preserve">
+    <value>Каталог муфт</value>
+    <comment>Заголовок страницы муфт</comment>
+  </data>
+  <data name="TitleCouplingType" xml:space="preserve">
+    <value>Виды муфт и резьб</value>
+    <comment>Заголовок страницы видов муфт и резьб</comment>
+  </data>
+  <data name="TitleDDrill" xml:space="preserve">
+    <value>Направленное бурение</value>
+    <comment>Заголовок страницы услуг направленного бурения</comment>
+  </data>
+  <data name="TitleDevelopment" xml:space="preserve">
+    <value>В разработке!</value>
+    <comment>Заголовок В разработке</comment>
+  </data>
+  <data name="TitleDrillRig" xml:space="preserve">
+    <value>Комплектация буровых установок</value>
+    <comment>Заголовок страницы Комплектации буровых установок</comment>
+  </data>
+  <data name="TitleDrillRigType" xml:space="preserve">
+    <value>Виды установок</value>
+    <comment>Заголовок страницы видов буровых установок</comment>
+  </data>
+  <data name="TitleDriveType" xml:space="preserve">
+    <value>Тип привода</value>
+    <comment>Заголовок страницы типов привода буровых установок</comment>
+  </data>
+  <data name="TitleEnergy" xml:space="preserve">
+    <value>Топливо</value>
+    <comment>Заголовок страницы Энергоносителей</comment>
+  </data>
+  <data name="TitleEnergyType" xml:space="preserve">
+    <value>Виды топлива</value>
+    <comment>Заголовок страницы Групп энергоносителей</comment>
+  </data>
+  <data name="TitleLexis" xml:space="preserve">
+    <value>Англо-русский словарь определений</value>
+    <comment>Заголовок страницы словаря определений</comment>
+  </data>
+  <data name="TitleMasterPage" xml:space="preserve">
+    <value>Меню</value>
+    <comment>Заголовок страницы MasterPage</comment>
+  </data>
+  <data name="TitleMudGroup" xml:space="preserve">
+    <value>РЕАГЕНТЫ И ЦЕМЕНТЫ</value>
+    <comment>Заголовок реагентов и тампонажных смесей</comment>
+  </data>
+  <data name="TitleOtherGroup" xml:space="preserve">
+    <value>ДРУГИЕ КАТАЛОГИ</value>
+    <comment>Заголовок прочего</comment>
+  </data>
+  <data name="TitlePipeCatalog" xml:space="preserve">
+    <value>Сортамент труб</value>
+    <comment>Заголовок страницы сортамента труб</comment>
+  </data>
+  <data name="TitlePipesGroup" xml:space="preserve">
+    <value>ТРУБЫ</value>
+    <comment>Заголовок труб</comment>
+  </data>
+  <data name="TitlePipeType" xml:space="preserve">
+    <value>Виды / группы труб</value>
+    <comment>Заголовок страницы групп труб</comment>
+  </data>
+  <data name="TitleRigGroup" xml:space="preserve">
+    <value>ОБОРУДОВАНИЕ</value>
+    <comment>Заголовок группы бурового оборудования</comment>
+  </data>
+  <data name="TitleRockRang" xml:space="preserve">
+    <value>Категория</value>
+    <comment>Заголовок страницы группы пород</comment>
+  </data>
+  <data name="TitleSteelCatalog" xml:space="preserve">
+    <value>Классы и группы стали</value>
+    <comment>Заголовок страницы классов и групп стали</comment>
+  </data>
+  <data name="TitleElementCatalog" xml:space="preserve">
+    <value>Каталог элементов</value>
+    <comment>Заголовок страницы технологической оснастки</comment>
+  </data>
+  <data name="TitleTools" xml:space="preserve">
+    <value>Оснастка</value>
+    <comment>Заголовок технологической оснастки</comment>
+  </data>
+  <data name="Tonn" xml:space="preserve">
+    <value> тонн</value>
+    <comment>Заголовок для грузоподъемности</comment>
+  </data>
+  <data name="Tonnage" xml:space="preserve">
+    <value>Грузоподъемность, т</value>
+    <comment>Заголовок для грузоподъемности</comment>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Группа:</value>
+    <comment>Заголовок для группы</comment>
+  </data>
+  <data name="TypePipes" xml:space="preserve">
+    <value>Вид труб:</value>
+    <comment>Заголовок для группы труб</comment>
+  </data>
+  <data name="DBUpload" xml:space="preserve">
+    <value>Сохранение копии базы данных</value>
+    <comment>Заголовок для кнопки - Сохранить копию базы данных</comment>
+  </data>
+  <data name="labVersion" xml:space="preserve">
+    <value>Версия</value>
+    <comment>Заголовок для версии</comment>
+  </data>
+  <data name="VersionDB" xml:space="preserve">
+    <value>Версия базы данных:</value>
+    <comment>Заголовок версии базы данных</comment>
+  </data>
+  <data name="Wall" xml:space="preserve">
+    <value>Стенка, мм:</value>
+    <comment>Заголовок для толщины стенки</comment>
+  </data>
+  <data name="WebApp" xml:space="preserve">
+    <value>Сайт проекта</value>
+    <comment>Сайт проекта</comment>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>Ширина, мм:</value>
+    <comment>Заголовок для ширины</comment>
+  </data>
+  <data name="WrongLabel" xml:space="preserve">
+    <value>Что-то не так? Дайте мне знать </value>
+    <comment>Заголовок для сообщения об ошибке в приложении</comment>
+  </data>
+  <data name="WrongLabelMail" xml:space="preserve">
+    <value>здесь</value>
+    <comment>Заголовок для электронной почты в сообщения об ошибке в приложении</comment>
+  </data>
+  <data name="FormulaLabCasing" xml:space="preserve">
+    <value>Параметры цементируемой колонны</value>
+  </data>
+  <data name="FormulaLabCasingPrev" xml:space="preserve">
+    <value>Параметры предыдущей колонны</value>
+  </data>
+  <data name="FormulaDSlurry" xml:space="preserve">
+    <value>плотность тампонажного раствора, г/см3 (обычно 1,85)</value>
+  </data>
+  <data name="FormulaDFluid" xml:space="preserve">
+    <value>плотность жидкости затворения, г/см3 (если модификация свойств тампонажного раствора не нужна, то 1г/см3)</value>
+  </data>
+  <data name="FormulaCLossCement" xml:space="preserve">
+    <value>коэффициент потерь сухого цемента (обычно 1,05)</value>
+  </data>
+  <data name="FormulaCLossWater" xml:space="preserve">
+    <value>коэффициент потери воды (обычно 1,25)</value>
+  </data>
+  <data name="Cement" xml:space="preserve">
+    <value>Цемент</value>
+  </data>
+  <data name="FormulaCementWAbout" xml:space="preserve">
+    <value>Расчет количества компонентов сухой тампонажной смеси и жидкости для её затворения производят с учётом водотвёрдого (водоцементного) отношения рекомендуемого поставщиком и оптимальной плотности цементного раствора, которая для бездобавочного цемента равна 1,85 г/см3</value>
+  </data>
+  <data name="FormulaCwsAbout" xml:space="preserve">
+    <value>По значениям плотности тампонажного раствора и плотности жидкости затворения определяют коэфициент водотвёрдого отношения.</value>
+  </data>
+  <data name="FormulaCWaterSolid" xml:space="preserve">
+    <value>коэфициент водотвёрдого отношения</value>
+  </data>
+  <data name="FormulaComponentWAbout" xml:space="preserve">
+    <value>Масса компонентов, необходимая для приготовления 1 м3 раствора (в тоннах) определяется по формулам</value>
+  </data>
+  <data name="FormulaCementTWAbout" xml:space="preserve">
+    <value>Общая масса сухого тампонажного материала (в тоннах) для приготовления требуемого объема тампонажного раствора</value>
+  </data>
+  <data name="FormulaGcem" xml:space="preserve">
+    <value>масса тампонажного материала на 1м3 раствора, т.</value>
+  </data>
+  <data name="FormulaGflu" xml:space="preserve">
+    <value>масса жидкости затворения на 1м3 раствора, т.</value>
+  </data>
+  <data name="FormulaTGcem" xml:space="preserve">
+    <value>общая масса сухого тампонажного материала, т.</value>
+  </data>
+  <data name="FormulaFluidTWAbout" xml:space="preserve">
+    <value>Общий объём жидкости затворения для приготовления требуемого объема тампонажного раствора, м3</value>
+  </data>
+  <data name="FormulaTGflu" xml:space="preserve">
+    <value>общий объём жидкости затворения, м3</value>
+  </data>
+  <data name="TitleBodyDrop" xml:space="preserve">
+    <value>Время падения сферического тела</value>
+  </data>
+  <data name="ToolbarItemFilter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="RateApp" xml:space="preserve">
+    <value>Оцените приложение</value>
+  </data>
+  <data name="TitleRigSet" xml:space="preserve">
+    <value>Комплекты установок</value>
+  </data>
+  <data name="TitleUnitGroup" xml:space="preserve">
+    <value>Группы оборудования</value>
+  </data>
+  <data name="labelAmt" xml:space="preserve">
+    <value>Количество:</value>
+  </data>
+  <data name="HeaderRig" xml:space="preserve">
+    <value>Буровая установка</value>
+  </data>
+  <data name="HeaderAmt" xml:space="preserve">
+    <value>Кол-во</value>
+  </data>
+  <data name="labelAmtTransport" xml:space="preserve">
+    <value>Кол-во рейсов:</value>
+  </data>
+  <data name="labelRig" xml:space="preserve">
+    <value>Установка:</value>
+  </data>
+  <data name="TitleRockType" xml:space="preserve">
+    <value>Группы пород</value>
+  </data>
+  <data name="TitleRock" xml:space="preserve">
+    <value>Вид пород</value>
+  </data>
+  <data name="TitleRockCatalog" xml:space="preserve">
+    <value>Каталог пород</value>
+  </data>
+  <data name="RockType" xml:space="preserve">
+    <value>Группы пород:</value>
+  </data>
+  <data name="TitleFuelCalc" xml:space="preserve">
+    <value>Плотность топлива</value>
+  </data>
+  <data name="TitleFuelType" xml:space="preserve">
+    <value>Виды топлива</value>
+  </data>
+  <data name="TitleFuelDenTable" xml:space="preserve">
+    <value>Таблица плотности</value>
+  </data>
+  <data name="TitleFuelDenCalc" xml:space="preserve">
+    <value>Расчет плотности</value>
+  </data>
+  <data name="TempBaseTitle" xml:space="preserve">
+    <value>Базовая t°C</value>
+  </data>
+  <data name="TempBaseLabel" xml:space="preserve">
+    <value>Базовая t°С:</value>
+  </data>
+  <data name="TableSymbolLabel" xml:space="preserve">
+    <value>Таблица:</value>
+  </data>
+  <data name="TableSymbolTitle" xml:space="preserve">
+    <value>Таблица</value>
+  </data>
+  <data name="EnergyLabel" xml:space="preserve">
+    <value>Топливо:</value>
+  </data>
+  <data name="DensityBaseLabel" xml:space="preserve">
+    <value>Базовая плотность:</value>
+  </data>
+  <data name="DensityBaseTitle" xml:space="preserve">
+    <value>Базовая плотность</value>
+  </data>
+  <data name="DensityLabel" xml:space="preserve">
+    <value>Плотность:</value>
+  </data>
+  <data name="DensityTitle" xml:space="preserve">
+    <value>Плотность</value>
+  </data>
+  <data name="DensityResultLabel" xml:space="preserve">
+    <value>Плотность при заданной температуре, кг/м3</value>
+  </data>
+  <data name="DensityCalcLabel" xml:space="preserve">
+    <value>Плотность, кг/м3:</value>
+  </data>
+  <data name="TempCalcLabel" xml:space="preserve">
+    <value>Температура, °С:</value>
+  </data>
+  <data name="DensityMetodLabel" xml:space="preserve">
+    <value>Метод корректировки плотности:</value>
+  </data>
+  <data name="metricObservedLabel" xml:space="preserve">
+    <value>из плотности при наблюдаемой температуре к базовым условиям</value>
+  </data>
+  <data name="metricBaseLabel" xml:space="preserve">
+    <value>из наблюдаемой плотности при базовой температуре к требуемой</value>
+  </data>
+  <data name="TitleEnergyGroup" xml:space="preserve">
+    <value>ТОПЛИВО</value>
+  </data>
+  <data name="TempBaseCalcLabel" xml:space="preserve">
+    <value>Базовая температура, °С:</value>
+  </data>
+  <data name="CalcButtonLab" xml:space="preserve">
+    <value>Рассчитать</value>
+  </data>
+  <data name="BodyDropDensityEnvironmentLabel" xml:space="preserve">
+    <value>Плотность среды, г/см3:</value>
+  </data>
+  <data name="BodyDropDensityBodyLabel" xml:space="preserve">
+    <value>Плотность тела, г/см3:</value>
+  </data>
+  <data name="BodyDropDistanceLabel" xml:space="preserve">
+    <value>Расстояние, м:</value>
+  </data>
+  <data name="BodyDropTimeLabel" xml:space="preserve">
+    <value>Время падения тела, мин.:</value>
+  </data>
+  <data name="BodyDropDiameterBallLabel" xml:space="preserve">
+    <value>Диаметр тела, мм:</value>
+  </data>
+  <data name="TitleThanks" xml:space="preserve">
+    <value>Создано при помощи сотрудников технологического отдела ООО "Полтавская буровая компания"</value>
+  </data>
+  <data name="BodyDropSpeedLabel" xml:space="preserve">
+    <value>Скорость падения тела, см/с:</value>
+  </data>
+  <data name="BodyDropFactorLabel" xml:space="preserve">
+    <value>Коэффициент падения тела:</value>
+  </data>
+  <data name="FormulaRittingerAbout" xml:space="preserve">
+    <value>Расчет скорости осуществляется с помощью формулы Риттингера:</value>
+  </data>
+  <data name="BodyDropFormulaDiameterBall" xml:space="preserve">
+    <value>d – диаметр сферического тела, мм</value>
+  </data>
+  <data name="BodyDropFormulaDensityBody" xml:space="preserve">
+    <value>δ – плотность тела, г/см3</value>
+  </data>
+  <data name="BodyDropFormulaDensityEnvironment" xml:space="preserve">
+    <value>Δ – плотность среды, г/см3</value>
+  </data>
+  <data name="BodyDropFormulaFactor" xml:space="preserve">
+    <value>K - коэффициент</value>
+  </data>
+  <data name="messageFormatError" xml:space="preserve">
+    <value>Неверный формат ввода данных!</value>
+  </data>
+  <data name="TitleMudCatalog" xml:space="preserve">
+    <value>Реагенты и тампонажные смеси</value>
+    <comment>Заголовок страницы реагентов и тампонажных смесей</comment>
+  </data>
+  <data name="ThemesOSName" xml:space="preserve">
+    <value>Системная</value>
+  </data>
+  <data name="TitleRockGroup" xml:space="preserve">
+    <value>КАТАЛОГ ПОРОД</value>
+  </data>
+  <data name="TitleToolsGroup" xml:space="preserve">
+    <value>ОСНАСТКА</value>
+  </data>
+  <data name="TitleCarGroup" xml:space="preserve">
+    <value>ТРАНСПОРТ И СПЕЦТЕХНИКА</value>
+  </data>
+  <data name="FilterError" xml:space="preserve">
+    <value>Активный режим редактирования!</value>
+  </data>
+  <data name="TitleDDrillType" xml:space="preserve">
+    <value>Группы элементов направленного бурения</value>
+  </data>
+</root>

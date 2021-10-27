@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       mc:Ignorable="d"
+       xmlns:contents="clr-namespace:DECAPP.Views"
+       xmlns:resources="clr-namespace:DECAPP.Resources"
+       xmlns:settings="clr-namespace:DECAPP.Views.Settings"
+       FlyoutHeaderBehavior="CollapseOnScroll"
+       FlyoutBackgroundColor="#2D353E"
+       BackgroundColor="#2D353E"
+       x:Class="DECAPP.Views.AppShell">
+
+
+
+    <Shell.Resources>
+        <Style x:Key="BaseStyle" TargetType="Element">
+            <Setter Property="Shell.BackgroundColor" Value="#2D353E" />
+            <Setter Property="Shell.ForegroundColor" Value="White" />
+            <Setter Property="Shell.TitleColor" Value="White" />
+            <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+            <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+        </Style>
+        <Style TargetType="Shell" BasedOn="{StaticResource BaseStyle}" />
+        <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+    </Shell.Resources>
+
+    <Shell.FlyoutHeader>
+        <settings:FlyoutHeader />
+    </Shell.FlyoutHeader>
+
+    <!--<Shell.FlyoutFooter>
+        <ShellContent Title="{x:Static resources:AppResource.SettingsApp}" ContentTemplate="{DataTemplate settings:SettingsPage}" />
+    </Shell.FlyoutFooter>-->
+
+
+    <!--С помощью свойства Shell.ItemTemplate мы, до некоторой степени, можем настроить отображение FlyoutItem в левом меню.-->
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid HeightRequest="48" ColumnDefinitions="0, *" ColumnSpacing="0" RowSpacing="0" Margin="0,0,0,0" >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{x:OnPlatform Android=DarkOrange}"/>
+                                    <!--<Setter Property="BackgroundColor" Value="DarkOrange"/>-->
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+                <!--<Image Grid.Column="0" Source="{Binding FlyoutIcon}" HeightRequest="{x:OnPlatform Android=24, iOS=22, UWP=16}" />-->
+                <Label Grid.Column="1" Text="{Binding Title}" Margin="8,0,8,0" VerticalTextAlignment="Center" TextColor="White" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <!--С помощью свойства Shell.MenuItemTemplate мы, до некоторой степени, можем настроить отображение FlyoutMenuItem в левом меню.-->
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid HeightRequest="48" ColumnDefinitions="0, *" ColumnSpacing="0" RowSpacing="0" Margin="0,0,0,0" >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{x:OnPlatform Android=DarkOrange}"/>
+                                    <!--<Setter Property="BackgroundColor" Value="DarkOrange"/>-->
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+                <!--<Image Grid.Column="0" Source="{Binding FlyoutIcon}" HeightRequest="{x:OnPlatform Android=24, iOS=22, UWP=16}" />-->
+                <Label Grid.Column="1" Text="{Binding Text}" Margin="8,0,8,0" VerticalTextAlignment="Center" TextColor="White" />
+            </Grid>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+
+
+
+    <!-- трубы -->
+    <MenuItem Text="{x:Static resources:AppResource.TitlePipesGroup}">
+        <Shell.MenuItemTemplate>
+            <DataTemplate >
+                <Label Text="{Binding Text}" VerticalTextAlignment="Center" TextColor="DarkOrange" FontSize="14" FontAttributes="Bold"
+                       LineBreakMode="NoWrap" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Padding="8,0,8,0" HeightRequest="{x:OnPlatform Android=48}" />
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+    <MenuItem Text="{x:Static resources:AppResource.TitlePipeCatalog}" Command="{Binding GoPipeCatalogCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitlePipeType}" Command="{Binding GoPipeTypeCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleCouplingCatalog}" Command="{Binding GoCouplingCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleCouplingType}" Command="{Binding GoCouplingTypeCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleSteelCatalog}" Command="{Binding GoSteelCatalogCom}" />
+
+
+    <!-- реагенты и цементы  -->
+    <MenuItem Text="{x:Static resources:AppResource.TitleMudGroup}">
+        <Shell.MenuItemTemplate>
+            <DataTemplate >
+                <Label Text="{Binding Text}" VerticalTextAlignment="Center" TextColor="DarkOrange" FontSize="14" FontAttributes="Bold"
+                       LineBreakMode="NoWrap" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Padding="8,0,8,0" HeightRequest="{x:OnPlatform Android=48}" />
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+    <MenuItem Text="{x:Static resources:AppResource.TitleMudCatalog}" Command="{Binding GoMudCatalogCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleElementGroup}" Command="{Binding GoMudTypeCom}" />
+    <!--<MenuItem Text="{x:Static resources:AppResource.TitleMudCatalog}" Command="{Binding GoMudTabCom}" />-->
+    <!--<ShellContent Title="{x:Static resources:AppResource.TitleMudCatalog}" ContentTemplate="{DataTemplate contents:Mud.MudCatalogPage}" />-->
+    <!--<FlyoutItem >
+        <Tab Title="Domestic">
+            <ShellContent Title="Cats" ContentTemplate="{DataTemplate contents:Mud.MudCatalogPage}" />
+            <ShellContent Title="Dogs" ContentTemplate="{DataTemplate contents:Mud.MudTypePage}" />
+        </Tab>
+    </FlyoutItem>-->
+    <MenuItem Text="{x:Static resources:AppResource.TitleCalcCementVol}" Command="{Binding GoCalcVolCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleCalcCementWeight}" Command="{Binding GoCalcWeitCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleCalcSpacerVol}" Command="{Binding GoCalcSpacerCom}" />
+
+
+    <!-- элементы КНБК -->
+    <MenuItem Text="{x:Static resources:AppResource.TitleBHAGroup}">
+        <Shell.MenuItemTemplate>
+            <DataTemplate >
+                <Label Text="{Binding Text}" VerticalTextAlignment="Center" TextColor="DarkOrange" FontSize="14" FontAttributes="Bold"
+                       LineBreakMode="NoWrap" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Padding="8,0,8,0" HeightRequest="{x:OnPlatform Android=48}" />
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+    <MenuItem Text="{x:Static resources:AppResource.TitleElementGroup}" Command="{Binding GoBitTypeCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleBitOD}" Command="{Binding GoBitODCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleBitDecode}" Command="{Binding GoBitDecodeCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleBitCode}" Command="{Binding GoBitCodeCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleDDrill}" Command="{Binding GoDDrillCatalogCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleDDrillType}" Command="{Binding GoDDrillTypeCom}" />
+
+
+    <!-- топливо -->
+    <MenuItem Text="{x:Static resources:AppResource.TitleEnergyGroup}" >
+        <Shell.MenuItemTemplate>
+            <DataTemplate >
+                <Label Text="{Binding Text}" VerticalTextAlignment="Center" TextColor="DarkOrange" FontSize="14" FontAttributes="Bold"
+                       LineBreakMode="NoWrap" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Padding="8,0,8,0" HeightRequest="{x:OnPlatform Android=48}" />
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+    <MenuItem Text="{x:Static resources:AppResource.TitleFuelDenCalc}" Command="{Binding GoFuelDenCalcCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleFuelDenTable}" Command="{Binding GoFuelDenTableCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleEnergy}" Command="{Binding GoEnergyCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleEnergyType}" Command="{Binding GoEnergyTypeCom}" />
+
+
+    <!-- оборудование -->
+    <MenuItem Text="{x:Static resources:AppResource.TitleRigGroup}" >
+        <Shell.MenuItemTemplate>
+            <DataTemplate >
+                <Label Text="{Binding Text}" VerticalTextAlignment="Center" TextColor="DarkOrange" FontSize="14" FontAttributes="Bold"
+                       LineBreakMode="NoWrap" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Padding="8,0,8,0" HeightRequest="{x:OnPlatform Android=48}" />
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+    <MenuItem Text="{x:Static resources:AppResource.TitleDrillRigType}" Command="{Binding GoRigTypeCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleDriveType}" Command="{Binding GoDriveTypeCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleAggregatGroup}" Command="{Binding GoUnitCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleUnitType}" Command="{Binding GoUnitTypeCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleRigSet}" Command="{Binding GoRigSetCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleUnitGroup}" Command="{Binding GoUnitGroupCom}" />
+
+
+    <!-- оснастка -->
+    <MenuItem Text="{x:Static resources:AppResource.TitleToolsGroup}" >
+        <Shell.MenuItemTemplate>
+            <DataTemplate >
+                <Label Text="{Binding Text}" VerticalTextAlignment="Center" TextColor="DarkOrange" FontSize="14" FontAttributes="Bold"
+                       LineBreakMode="NoWrap" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Padding="8,0,8,0" HeightRequest="{x:OnPlatform Android=48}" />
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+    <MenuItem Text="{x:Static resources:AppResource.TitleTools}" Command="{Binding GoToolsCatalogCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleElementGroup}" Command="{Binding GoToolsTypeCom}" />
+
+
+    <!-- транспорт -->
+    <MenuItem Text="{x:Static resources:AppResource.TitleCarGroup}" >
+        <Shell.MenuItemTemplate>
+            <DataTemplate >
+                <Label Text="{Binding Text}" VerticalTextAlignment="Center" TextColor="DarkOrange" FontSize="14" FontAttributes="Bold"
+                       LineBreakMode="NoWrap" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Padding="8,0,8,0" HeightRequest="{x:OnPlatform Android=48}" />
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+    <MenuItem Text="{x:Static resources:AppResource.TitleCar}" Command="{Binding GoCarCatalogCom}" />
+    <!--<ShellContent x:Name="carCatalogPage" Title="{x:Static resources:AppResource.TitleCar}" ContentTemplate="{DataTemplate contents:Cars.CarCatalogPage}" />-->
+    <MenuItem Text="{x:Static resources:AppResource.TitleCarType}" Command="{Binding GoCarTypeCom}" />
+    <!--<ShellContent x:Name="carTypePage" Title="{x:Static resources:AppResource.TitleCarType}" ContentTemplate="{DataTemplate contents:Cars.CarTypePage}" />-->
+
+
+    <!-- каталог пород -->
+    <MenuItem Text="{x:Static resources:AppResource.TitleRockGroup}" >
+        <Shell.MenuItemTemplate>
+            <DataTemplate >
+                <Label Text="{Binding Text}" VerticalTextAlignment="Center" TextColor="DarkOrange" FontSize="14" FontAttributes="Bold"
+                       LineBreakMode="NoWrap" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Padding="8,0,8,0" HeightRequest="{x:OnPlatform Android=48}" />
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+    <MenuItem Text="{x:Static resources:AppResource.TitleRockRang}" Command="{Binding GoRockRangCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleRock}" Command="{Binding GoRockCom}" />
+    <MenuItem Text="{x:Static resources:AppResource.TitleRockType}" Command="{Binding GoRockTypeCom}" />
+
+
+    <!-- прочее -->
+    <MenuItem Text="{x:Static resources:AppResource.TitleOtherGroup}" >
+        <Shell.MenuItemTemplate>
+            <DataTemplate >
+                <Label Text="{Binding Text}" VerticalTextAlignment="Center" TextColor="DarkOrange" FontSize="14" FontAttributes="Bold"
+                       LineBreakMode="NoWrap" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Padding="8,0,8,0" HeightRequest="{x:OnPlatform Android=48}" />
+            </DataTemplate>
+        </Shell.MenuItemTemplate>
+    </MenuItem>
+    <MenuItem Text="{x:Static resources:AppResource.TitleLexis}" Command="{Binding GoLexisCom}" />
+    <!--<ShellContent x:Name="lexisPage" Title="{x:Static resources:AppResource.TitleLexis}" ContentTemplate="{DataTemplate contents:Other.LexisPage}" />-->
+
+
+    <ShellContent x:Name="settingsPage" Title="{x:Static resources:AppResource.SettingsApp}" ContentTemplate="{DataTemplate settings:SettingsPage}" />
+
+    <!--<ShellItem Title="Home">
+        <ShellSection>
+            <ShellContent Title="{x:Static resources:AppResource.SettingsApp}" ContentTemplate="{DataTemplate settings:SettingsPage}" />
+        </ShellSection>
+    </ShellItem>-->
+
+    <!--<ShellItem Title="My apps &amp; games">
+        <ShellContent Title="{x:Static resources:AppResource.SettingsApp}" ContentTemplate="{DataTemplate settings:SettingsPage}" />
+        <ShellContent Title="{x:Static resources:AppResource.TitleLexis}" ContentTemplate="{DataTemplate contents:Other.LexisPage}" />
+    </ShellItem>-->
+
+    <!--<ShellItem Title="My apps &amp; games">
+        <ShellContent Title="{x:Static resources:AppResource.TitleLexis}">
+            <ShellContent.MenuItems>
+                <MenuItem Text="{x:Static resources:AppResource.TitleLexis}" Command="{Binding GoLexisCommand}" />
+            </ShellContent.MenuItems>
+        </ShellContent>
+    </ShellItem>-->
+
+</Shell>

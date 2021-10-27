@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:DECAPP.Resources"
+             xmlns:local="clr-namespace:DECAPP;assembly=DECAPP"
+             x:Class="DECAPP.Views.BHA.BitCodePage"
+             Title="{x:Static resources:AppResource.TitleBitCode}"
+             x:Name="bitCodePage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="Style" Value="{DynamicResource labelStyle}" />
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="Style" Value="{DynamicResource editorStyle}" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Style" Value="{DynamicResource entryStyle}" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Style" Value="{StaticResource buttonStyle}" />
+            </Style>
+            <Style TargetType="Picker">
+                <Setter Property="Style" Value="{DynamicResource pickerStyle}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <StackLayout Spacing="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Background_Dark}, Light={StaticResource Background_Light}}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" >
+            <!-- Header - CommandBar -->
+            <Grid BackgroundColor="#515C6B" ColumnSpacing="0" RowSpacing="0" HeightRequest="48" MinimumHeightRequest="48" ColumnDefinitions="*, *">
+                <!-- SearchBar -->
+                <SearchBar x:Name="SearchBar" Grid.Column="0" Placeholder="{x:Static resources:AppResource.SearchBar}" Style="{StaticResource searchBarStyle}" TextChanged="OnFilter" >
+                    <SearchBar.Triggers>
+                        <DataTrigger TargetType="SearchBar" Binding="{Binding Source={x:Reference Master}, Path=IsVisible}" Value="False">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="SearchBar" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </SearchBar.Triggers>
+                </SearchBar>
+                <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" Spacing="0" IsVisible="{Binding Source={x:Static local:App.ProState}}">
+                    <!-- EditCommandBar -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="0" >
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <Button x:Name="EditButton" Text="{StaticResource EditIcon}" Released="OnEdit" />
+                        <Button x:Name="AddButton" Text="{StaticResource AddIcon}" Released="OnAdd" />
+                        <Button x:Name="DeleteButton" Text="{StaticResource DeleteIcon}" Released="OnDelete" />
+                    </StackLayout>
+                    <!-- SaveCommandBar -->
+                    <StackLayout x:Name="SaveCommandBar" Orientation="Horizontal" HorizontalOptions="End" Spacing="0" IsVisible="False" >
+                        <Button Text="{StaticResource SaveIcon}" Released="OnSave" >
+                            <Button.Triggers>
+                                <MultiTrigger TargetType="Button">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Source={x:Reference editSYMBOL}, Path=Text.Length}" Value="0" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference editFEATURE}, Path=Text.Length}" Value="0" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference editSPECIFICATION}, Path=Text.Length}" Value="0" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference picTYPENAME}, Path=SelectedIndex}" Value="-1" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference picSERIAL}, Path=SelectedIndex}" Value="-1" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </MultiTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="{StaticResource CancelIcon}" Released="OnCancel" />
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+
+            <!-- Body -->
+            <Grid x:Name="Body" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="DetailColumn" Height="{x:OnIdiom Phone=0}" />
+                    <RowDefinition x:Name="MasterColumn" />
+                </Grid.RowDefinitions>
+
+                <!-- Detail -->
+                <ScrollView x:Name="Detail" Grid.Row="0" >
+                    <Grid x:Name="DetailContent" Margin="12,12,8,12" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" InputTransparent="True" RowDefinitions="48, 84, 48, 112">
+                        <Grid.Triggers>
+                            <DataTrigger TargetType="Grid" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                                <Setter Property="InputTransparent" Value="False" />
+                            </DataTrigger>
+                        </Grid.Triggers>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="{x:OnIdiom Default=340, Phone=*}" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Type -->
+                        <Label Grid.Row="0" Grid.Column="0" x:Name="labType" Margin="8,12,0,12" Text="{x:Static resources:AppResource.Type}" TextColor="#515C6B" />
+                        <Picker x:Name="picTYPENAME" Grid.Row="0" Grid.Column="1"
+                                ItemsSource="{Binding TypeList}" SelectedIndex="{Binding IndexTypeList}" SelectedItem="{Binding SelectItem.TYPEID, Mode=TwoWay}"
+                                ItemDisplayBinding="{Binding TYPENAME}" Title="{OnPlatform Android={x:Static resources:AppResource.HeaderType}, iOS={x:Static resources:AppResource.HeaderType}}"/>
+
+                        <!-- Serial & Symbol -->
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,0,0,0" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="*, *">
+                            <!-- Serial -->
+                            <StackLayout Grid.Column="0" Margin="0,0,8,0" VerticalOptions="FillAndExpand" Spacing="0">
+                                <Label x:Name="labSerial" Margin="0,8,0,8" Text="{x:Static resources:AppResource.BitCodeSerial}" TextColor="#515C6B" />
+                                <Picker x:Name="picSERIAL" ItemsSource="{Binding SerialList}" SelectedIndex="{Binding IndexSerialList}"
+                                        SelectedItem="{Binding SelectItem.SERIAL, Mode=TwoWay}" ItemDisplayBinding="{Binding Value}" Title="{OnPlatform Android='#', iOS='#'}" />
+
+                            </StackLayout>
+                            <!-- Symbol -->
+                            <StackLayout Grid.Column="1" Margin="12,0,0,0" VerticalOptions="FillAndExpand" Spacing="0">
+                                <Label x:Name="labSymbol" Margin="0,8,0,8" Text="{x:Static resources:AppResource.BitCodeSymbol}" TextColor="#515C6B" />
+                                <Entry x:Name="editSYMBOL" Text="{Binding SelectItem.SYMBOL}" />
+                            </StackLayout>
+                        </Grid>
+
+                        <!-- Feature -->
+                        <Label Grid.Row="2" Grid.Column="0" x:Name="labFeature" Margin="8,12,0,12" Text="{x:Static resources:AppResource.Feature}" TextColor="#515C6B" />
+                        <Editor x:Name="editFEATURE" Grid.Row="2" Grid.Column="1" Placeholder="{x:Static resources:AppResource.HeaderFeature}" Text="{Binding SelectItem.FEATURE}" />
+
+                        <!-- Specification -->
+                        <Label Grid.Row="3" Grid.Column="0" x:Name="labSpecification" Margin="8,12,0,12" Text="{x:Static resources:AppResource.Description}" TextColor="#515C6B" />
+                        <Editor x:Name="editSPECIFICATION" Grid.Row="3" Grid.Column="1" Placeholder="{x:Static resources:AppResource.HeaderDescription}" Text="{Binding SelectItem.SPECIFICATION}" />
+                    </Grid>
+                </ScrollView>
+
+                <!-- Navigation items-->
+                <StackLayout Grid.Row="1" x:Name="Master" BackgroundColor="#1F252C" VerticalOptions="FillAndExpand" Spacing="0" >
+                    <StackLayout.Triggers>
+                        <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </StackLayout.Triggers>
+
+                    <!-- Header ListView -->
+                    <Grid x:Name="MasterHeader" BackgroundColor="#2D353E" ColumnSpacing="0" RowSpacing="0" HeightRequest="48" MinimumHeightRequest="48" ColumnDefinitions="4*, 2*, 4*, 5*, 10*">
+                        <Label Grid.Column="0" Text="{x:Static resources:AppResource.HeaderType}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" />
+                        <Label Grid.Column="1" Text="{x:Static resources:AppResource.BitCodeSerialHeader}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" />
+                        <Label Grid.Column="2" Text="{x:Static resources:AppResource.BitCodeSymbolHeader}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" />
+                        <Label Grid.Column="3" Text="{x:Static resources:AppResource.HeaderFeature1}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" />
+                        <Label Grid.Column="4" Text="{x:Static resources:AppResource.HeaderDescription}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" />
+                    </Grid>
+
+                    <!-- MasterContent -->
+                    <ListView x:Name="MasterContent" HasUnevenRows="True" ItemsSource="{Binding Collection}" BackgroundColor="Transparent"
+                              ItemTapped="OnTapped" ItemSelected="OnSelection" Margin="0,1,0,0" CachingStrategy="RecycleElement"
+                              SeparatorVisibility="Default" SeparatorColor="#515C6B" SelectedItem="{Binding SelectItem, Mode=TwoWay}" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Spacing="0" HeightRequest="48" MinimumHeightRequest="48">
+                                        <Grid VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="4*, 2*, 4*, 5*, 10*">
+                                            <Label Grid.Column="0" x:Name="GroupIDList" Text="{Binding BitTypes.TYPENAME}" Margin="4,4,4,4" Style="{DynamicResource labelTableStyle}" MaxLines="2" />
+                                            <Label Grid.Column="1" x:Name="SerialList" Text="{Binding SERIAL}" Margin="4,4,4,4" Style="{DynamicResource labelTableStyle}" />
+                                            <Label Grid.Column="2" x:Name="SymbolList" Text="{Binding SYMBOL}" Margin="4,4,4,4" Style="{DynamicResource labelTableStyle}" />
+                                            <Label Grid.Column="3" x:Name="FeatureList" Text="{Binding FEATURE}" Margin="4,4,4,4" Style="{DynamicResource labelTableStyle}" MaxLines="2" />
+                                            <Label Grid.Column="4" x:Name="SpecificationList" Text="{Binding SPECIFICATION}" Margin="4,4,4,4" Style="{DynamicResource labelTableStyle}"
+                                                   MaxLines="2" LineBreakMode="TailTruncation" />
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="indicator" IsVisible="{Binding Source={x:Reference bitCodePage}, Path=IsBusy}"
+                               IsRunning="{Binding Source={x:Reference bitCodePage}, Path=IsBusy}" Color="DarkOrange" HeightRequest="48" WidthRequest="48" BackgroundColor="Transparent" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

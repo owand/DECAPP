@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:DECAPP.Resources"
+             xmlns:local="clr-namespace:DECAPP;assembly=DECAPP"
+             x:Class="DECAPP.Views.Settings.SettingsPage"
+             Title="{x:Static resources:AppResource.SettingsApp}"
+             x:Name="settingsPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="Style" Value="{DynamicResource labelStyle}" />
+            </Style>
+            <Style TargetType="Picker">
+                <Setter Property="Style" Value="{DynamicResource pickerStyle}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <StackLayout Spacing="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Background_Dark}, Light={StaticResource Background_Light}}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" VerticalOptions="FillAndExpand" >
+
+            <!--Content-->
+            <ScrollView x:Name="Detail" Grid.Row="0" VerticalOptions="FillAndExpand">
+                <Grid x:Name="SettingsContent" ColumnSpacing="0" RowSpacing="0" VerticalOptions="FillAndExpand" RowDefinitions="Auto, *">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='500', Desktop='500', Phone='*'}" />
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='*', Desktop='*', Phone='0'}" />
+                        <ColumnDefinition Width="{x:OnIdiom Tablet='500', Desktop='500', Phone='0'}" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Settings Content -->
+                    <Grid x:Name="Settings" Grid.Column="0" Grid.Row="0" Margin="4,4,4,20" RowSpacing="0" ColumnSpacing="0" RowDefinitions="auto, auto, auto, *">
+                        <!--Languages-->
+                        <StackLayout Grid.Row="0" Margin="12,12,8,20" Spacing="0">
+                            <Label Text="{x:Static resources:AppResource.LanguagesApp}" FontSize="16" FontAttributes="Bold" Margin="0,8,0,0" />
+                            <StackLayout Margin="0,8,0,0" WidthRequest="300" HorizontalOptions="Start">
+                                <Picker x:Name="PickerLanguages" Margin="0,0,4,0" ItemsSource="{Binding LangCollection}" SelectedIndex="{Binding AppLanguage}"
+                                            ItemDisplayBinding="{Binding LANGDISPLAY}" />
+                            </StackLayout>
+                        </StackLayout>
+                        <!--Themes-->
+                        <StackLayout Grid.Row="1" Margin="12,20,8,20" Spacing="0">
+                            <Label Text="{x:Static resources:AppResource.ThemesApp}" FontSize="16" FontAttributes="Bold" Margin="0,8,0,0" />
+                            <StackLayout Margin="0,8,0,0" WidthRequest="300" HorizontalOptions="Start">
+                                <Picker x:Name="PickerThemes" Margin="0,0,4,0" ItemsSource="{Binding ThemesCollection}" SelectedIndex="{Binding AppTheme}"
+                                            ItemDisplayBinding="{Binding THEMEDISPLAY}" SelectedIndexChanged="OnThemesChanged" />
+                            </StackLayout>
+                        </StackLayout>
+                        <!-- Authentication & Backup & Restore-->
+                        <StackLayout Grid.Row="2" x:Name="slBackupGroup" Margin="12,32,8,12" Spacing="0" IsVisible="{Binding Source={x:Static local:App.ProState}}">
+                            <Label Text="{x:Static resources:AppResource.AuthenticationTitle}" FontSize="16" FontAttributes="Bold" Margin="0,8,0,0" />
+                            <!-- Upload Backup -->
+                            <StackLayout Margin="8,0,0,0" Orientation="Horizontal" HorizontalOptions="Start" Spacing="0">
+                                <Button x:Name="btnUploadBackup" Text="&#xF0167;" TextColor="White" Clicked="OnUploadBackupAsync"
+                                        BackgroundColor="#515C6B" BorderWidth="0" VerticalOptions="FillAndExpand" Margin="0,8,0,0"
+                                        FontFamily="{x:StaticResource MaterialIcons}" FontSize="24" HeightRequest="48" WidthRequest="48" />
+                                <Label Text="{x:Static resources:AppResource.DBUpload}" Margin="12,8,0,0" VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                            <!-- Download Backup -->
+                            <StackLayout Margin="8,0,0,0" Orientation="Horizontal" HorizontalOptions="Start" Spacing="0">
+                                <Button x:Name="btnDownloadBackup" Text="&#xF0162;" Clicked="OnDownloadBackup" TextColor="White"
+                                        BackgroundColor="#515C6B" BorderWidth="0" VerticalOptions="FillAndExpand" Margin="0,8,0,0"
+                                        FontFamily="{x:StaticResource MaterialIcons}" FontSize="24" HeightRequest="48" WidthRequest="48" />
+                                <Label Text="{x:Static resources:AppResource.DBDownload}" Margin="12,8,0,0" VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
+
+                    <!-- About Content -->
+                    <Grid x:Name="About" Grid.Column="1" Grid.Row="1" Margin="4,4,4,20" RowSpacing="0" ColumnSpacing="0" RowDefinitions="auto, auto, auto, auto, auto, auto, *">
+
+                        <!-- Donat -->
+                        <StackLayout x:Name="slProState" Grid.Row="1" Margin="12,40,8,8" Spacing="0">
+                            <StackLayout.Triggers>
+                                <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Static local:App.ProState}}" Value="True">
+                                    <Setter Property="IsVisible" Value="false" />
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                            <Label TextColor="Red" HorizontalOptions="Start" Margin="0,0,0,4">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static resources:AppResource.ProStateOn}" TextDecorations="Underline" >
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="ProVersionPurchase" />
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text=" "/>
+                                        <Span Text="{StaticResource LinkIcon}" FontFamily="{x:StaticResource MaterialIcons}" FontSize="12" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Text="{x:Static resources:AppResource.ProStateAbout}" Margin="0,0,4,4" />
+                        </StackLayout>
+
+                        <!--About-->
+                        <StackLayout Grid.Row="2" Margin="12,12,8,8" Spacing="0">
+                            <Label Text="{x:Static resources:AppResource.AboutApp}" FontSize="16" FontAttributes="Bold" Margin="0,8,0,0" />
+                            <StackLayout Orientation="Horizontal" Margin="0,8,0,0" VerticalOptions="EndAndExpand">
+                                <Label x:Name="labAppName" Margin="0,0,8,0" FontSize="16" FontAttributes="Bold" HorizontalOptions="Start" />
+                                <Label Text="{x:Static resources:AppResource.labVersion}" Margin="0,0,0,0" VerticalOptions="End" HorizontalOptions="Start" />
+                                <Label x:Name="labAppVersion" Margin="4,0,0,0" VerticalOptions="End" HorizontalOptions="Start" />
+                            </StackLayout>
+                            <Label Margin="0,4,0,0" TextColor="DarkOrange" FontAttributes="Bold" HorizontalOptions="Start">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static resources:AppResource.WebApp}" TextDecorations="Underline" >
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="Tapped_siteProject" />
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text=" "/>
+                                        <Span Text="{StaticResource LinkIcon}" FontFamily="{x:StaticResource MaterialIcons}" FontSize="12" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Margin="0,20,0,0" TextColor="Green" FontAttributes="Bold" HorizontalOptions="Start">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static resources:AppResource.RateApp}" TextDecorations="Underline" >
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OpenReviewStore" />
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text=" "/>
+                                        <Span Text="{StaticResource LinkIcon}" FontFamily="{x:StaticResource MaterialIcons}" FontSize="12" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+
+                        <!-- OS About -->
+                        <StackLayout Grid.Row="3" Margin="12,12,8,8" Spacing="0">
+                            <Label Text="{x:Static resources:AppResource.OSAbout}" FontSize="16" FontAttributes="Bold" Margin="0,8,0,0" />
+                            <Label Margin="0,8,0,0" TextColor="DarkOrange" FontAttributes="Bold" HorizontalOptions="Start">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span TextDecorations="Underline" >
+                                            <Span.Text>
+                                                <OnPlatform x:TypeArguments="x:String" >
+                                                    <On Platform="Android" Value="{x:Static resources:AppResource.OSMicrosoft}" />
+                                                    <On Platform="UWP" Value="{x:Static resources:AppResource.OSAndroid}" />
+                                                </OnPlatform>
+                                            </Span.Text>
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OpenStore" />
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text=" "/>
+                                        <Span Text="{StaticResource LinkIcon}" FontFamily="{x:StaticResource MaterialIcons}" FontSize="12" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+
+                        <!--Author-->
+                        <StackLayout Grid.Row="4" Margin="12,12,8,8" Spacing="0">
+                            <Label Text="{x:Static resources:AppResource.AuthorTitle}" FontSize="16" FontAttributes="Bold" Margin="0,8,0,0" />
+                            <Label Margin="0,8,0,0" FontAttributes="Bold" HorizontalOptions="Start">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static resources:AppResource.AuthorApp}"/>
+                                        <Span Text="  "/>
+                                        <Span Text="{x:Static resources:AppResource.AuthorName}" TextColor="DarkOrange" TextDecorations="Underline" >
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="Tapped_mailAuthor" />
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text=" "/>
+                                        <Span Text="{StaticResource LinkIcon}" FontFamily="{x:StaticResource MaterialIcons}" TextColor="DarkOrange" FontSize="12" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Text="Copyright©2018" Margin="0,0,4,0" HorizontalOptions="Start" />
+                            <Label Margin="0,8,0,0" FontAttributes="Bold" HorizontalOptions="Start">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static resources:AppResource.WrongLabel}"/>
+                                        <Span Text=" "/>
+                                        <Span Text="{x:Static resources:AppResource.WrongLabelMail}" TextColor="DarkOrange" TextDecorations="Underline" >
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="Tapped_mailAuthor" />
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text=" "/>
+                                        <Span Text="{StaticResource LinkIcon}" FontFamily="{x:StaticResource MaterialIcons}" TextColor="DarkOrange" FontSize="12" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+
+                        <!--Policy-->
+                        <StackLayout Grid.Row="5" Margin="12,12,8,8" Spacing="0">
+                            <Label Text="{x:Static resources:AppResource.PrivacyApp}" FontSize="16" FontAttributes="Bold" Margin="0,8,0,0" />
+                            <Label Margin="0,8,0,0" FontAttributes="Bold" HorizontalOptions="Start">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static resources:AppResource.PrivacyStatement}" TextColor="DarkOrange" TextDecorations="Underline" >
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="Tapped_privacyPolicy" />
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text=" "/>
+                                        <Span Text="{StaticResource LinkIcon}" FontFamily="{x:StaticResource MaterialIcons}" TextColor="DarkOrange" FontSize="12" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Text="{x:Static resources:AppResource.Privacy}" Margin="0,8,0,0" />
+                        </StackLayout>
+                    </Grid>
+                </Grid>
+            </ScrollView>
+        </StackLayout>
+
+        <StackLayout IsVisible="{Binding Source={x:Reference settingsPage}, Path=IsBusy}" Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="indicator" IsRunning="{Binding Source={x:Reference settingsPage}, Path=IsBusy}"
+                               IsVisible="{Binding Source={x:Reference settingsPage}, Path=IsBusy}" IsEnabled="{Binding Source={x:Reference settingsPage}, Path=IsBusy}"
+                               Color="DarkOrange" HeightRequest="48" WidthRequest="48" BackgroundColor="Transparent" />
+            <Label x:Name="labActivityUpload" Text="{x:Static resources:AppResource.DBUpload}" HorizontalOptions="Center" IsVisible="False" TextColor="DarkOrange"/>
+            <Label x:Name="labActivityDownload" Text="{x:Static resources:AppResource.DBDownload}" HorizontalOptions="Center" IsVisible="False" TextColor="DarkOrange"/>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

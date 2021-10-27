@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:DECAPP.Resources"
+             xmlns:local="clr-namespace:DECAPP;assembly=DECAPP"
+             xmlns:services="clr-namespace:DECAPP.Services"
+             x:Class="DECAPP.Views.Pipes.SteelCatalogPage"
+             Title="{x:Static resources:AppResource.TitleSteelCatalog}"
+             x:Name="steelCatalogPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="Style" Value="{DynamicResource labelStyle}" />
+            </Style>
+            <Style TargetType="Editor">
+                <Setter Property="Style" Value="{DynamicResource editorStyle}" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Style" Value="{DynamicResource entryStyle}" />
+            </Style>
+            <Style TargetType="Frame">
+                <Setter Property="Style" Value="{StaticResource frameStyle}" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Style" Value="{StaticResource buttonStyle}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+        <StackLayout Spacing="0" BackgroundColor="{AppThemeBinding Dark={StaticResource Background_Dark}, Light={StaticResource Background_Light}}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" >
+            <!-- Header - CommandBar -->
+            <Grid BackgroundColor="#515C6B" ColumnSpacing="0" RowSpacing="0" HeightRequest="48" MinimumHeightRequest="48" ColumnDefinitions="*, *">
+                <!-- SearchBar -->
+                <SearchBar x:Name="SearchBar" Grid.Column="0" Placeholder="{x:Static resources:AppResource.SearchBar}" Style="{StaticResource searchBarStyle}" TextChanged="OnFilter" >
+                    <SearchBar.Triggers>
+                        <DataTrigger TargetType="SearchBar" Binding="{Binding Source={x:Reference Master}, Path=IsVisible}" Value="False">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="SearchBar" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </SearchBar.Triggers>
+                </SearchBar>
+                <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" Spacing="0" IsVisible="{Binding Source={x:Static local:App.ProState}}">
+                    <!-- EditCommandBar -->
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="0" >
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <Button x:Name="EditButton" Text="{StaticResource EditIcon}" Released="OnEdit" />
+                        <Button x:Name="AddButton" Text="{StaticResource AddIcon}" Released="OnAdd" />
+                        <Button x:Name="DeleteButton" Text="{StaticResource DeleteIcon}" Released="OnDelete" />
+                    </StackLayout>
+                    <!-- SaveCommandBar -->
+                    <StackLayout x:Name="SaveCommandBar" Orientation="Horizontal" HorizontalOptions="End" Spacing="0" IsVisible="False" >
+                        <Button Text="{StaticResource SaveIcon}" Released="OnSave" >
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference editNAME}, Path=Text.Length}" Value="0">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Text="{StaticResource CancelIcon}" Released="OnCancel" />
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+
+            <!--Content-->
+            <Grid x:Name="Body" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="{x:OnIdiom Phone=0}" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!-- Detail -->
+                <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand" Spacing="0" InputTransparent="True" >
+                    <StackLayout.Triggers>
+                        <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                            <Setter Property="InputTransparent" Value="False" />
+                        </DataTrigger>
+                    </StackLayout.Triggers>
+                    <ScrollView x:Name="Detail" VerticalOptions="FillAndExpand">
+                        <Grid Margin="12,12,8,12" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" RowDefinitions="48, auto, 60, 48, 84, 48, auto, *">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160" />
+                                <ColumnDefinition Width="{x:OnIdiom Tablet=3*, Desktop=3*, Phone=*}" />
+                                <ColumnDefinition Width="{x:OnIdiom Tablet=1*, Desktop=1*, Phone=0}" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Name -->
+                            <Label Grid.Row="0" Grid.Column="0" Margin="8,12,0,12" Text="{x:Static resources:AppResource.Grade}" TextColor="#515C6B" />
+                            <Editor Grid.Row="0" Grid.Column="1" x:Name="editNAME" MinimumWidthRequest="320" Text="{Binding SelectItem.STEELNAME}" />
+
+                            <!-- Analog -->
+                            <Label Grid.Row="1" Grid.Column="0" Margin="8,12,0,12" Text="{x:Static resources:AppResource.Analog}" TextColor="#515C6B" />
+                            <Editor Grid.Row="1" Grid.Column="1" Text="{Binding SelectItem.ANALOG}" />
+
+                            <!-- Class -->
+                            <Label Grid.Row="2" Grid.Column="0" Margin="8,12,0,12" Text="{x:Static resources:AppResource.Group}" TextColor="#515C6B" />
+                            <Editor Grid.Row="2" Grid.Column="1" Text="{Binding SelectItem.STEELCLASS}" />
+
+                            <!-- Tensile -->
+                            <Label Grid.Row="3" Grid.Column="0" Margin="8,12,0,12" Text="{x:Static resources:AppResource.Tensile}" TextColor="#515C6B" />
+                            <Entry Grid.Row="3" Grid.Column="1" Text="{Binding SelectItem.TENSILEFORMAT}" Keyboard="Numeric" />
+
+                            <!-- MinYield & MaxYield -->
+                            <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,0,0,0" VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="*, *">
+                                <!-- MinYield -->
+                                <StackLayout Grid.Column="0" Margin="0,0,8,0" VerticalOptions="FillAndExpand" Spacing="0">
+                                    <Label Margin="0,8,0,8" Text="{x:Static resources:AppResource.StrengthMin}" TextColor="#515C6B" />
+                                    <Entry Keyboard="Numeric" Text="{Binding SelectItem.MINYIELDFORMAT}" >
+                                        <Entry.Behaviors>
+                                            <services:NumericEntryBehavior />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                </StackLayout>
+                                <!-- MaxYield -->
+                                <StackLayout Grid.Column="1" Margin="12,0,0,0" VerticalOptions="FillAndExpand" Spacing="0">
+                                    <Label Margin="0,8,0,8" Text="{x:Static resources:AppResource.StrengthMax}" TextColor="#515C6B" />
+                                    <Entry Keyboard="Numeric" Text="{Binding SelectItem.MAXYIELDFORMAT}" >
+                                        <Entry.Behaviors>
+                                            <services:NumericEntryBehavior />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                </StackLayout>
+                            </Grid>
+
+                            <!-- Elongation -->
+                            <Label Grid.Row="5" Grid.Column="0" Margin="8,12,0,12" Text="{x:Static resources:AppResource.Elongation}" TextColor="#515C6B" />
+                            <Entry Grid.Row="5" Grid.Column="1" Keyboard="Numeric" Text="{Binding SelectItem.ELONGATIONFORMAT}" >
+                                <Entry.Behaviors>
+                                    <services:NumericEntryBehavior />
+                                </Entry.Behaviors>
+                            </Entry>
+
+                            <!-- Note -->
+                            <Label Grid.Row="6" Grid.Column="0" Margin="8,12,0,12" Text="{x:Static resources:AppResource.Note}" TextColor="#515C6B" />
+                            <Editor Grid.Row="6" Grid.Column="1" Text="{Binding SelectItem.NOTE}" />
+                        </Grid>
+                    </ScrollView>
+                </StackLayout>
+
+                <!-- Navigation items-->
+                <StackLayout Grid.Row="1" x:Name="Master" BackgroundColor="#1F252C" VerticalOptions="FillAndExpand" Spacing="0" >
+                    <StackLayout.Triggers>
+                        <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference Name=SaveCommandBar}, Path=IsVisible}" Value="True">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </StackLayout.Triggers>
+
+                    <!-- Header ListView -->
+                    <Grid x:Name="MasterHeader" BackgroundColor="#2D353E" ColumnSpacing="0" RowSpacing="0" HeightRequest="48" MinimumHeightRequest="48" ColumnDefinitions="3*, 3*, 3*, 6*">
+                        <Label Grid.Column="0" Text="{x:Static resources:AppResource.HeaderGrade}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="{x:Static resources:AppResource.HeaderAnalog}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" VerticalOptions="Center" />
+                        <Label Grid.Column="2" Text="{x:Static resources:AppResource.HeaderGroup}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" VerticalOptions="Center" />
+                        <Label Grid.Column="3" Text="{x:Static resources:AppResource.HeaderNote}" Margin="4,6,4,4" Style="{StaticResource labelHeaderTableStyle}" VerticalOptions="Center" />
+                    </Grid>
+
+                    <!-- Master ListView -->
+                    <ListView x:Name="MasterContent" HasUnevenRows="True" ItemsSource="{Binding Collection}" BackgroundColor="Transparent"
+                              ItemTapped="OnTapped" ItemSelected="OnSelection" Margin="0,1,0,0" CachingStrategy="RecycleElement"
+                              SeparatorVisibility="Default" SeparatorColor="#515C6B" SelectedItem="{Binding SelectItem, Mode=TwoWay}" >
+                        <!-- ListView Template -->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Spacing="0" HeightRequest="48">
+                                        <Grid VerticalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" ColumnDefinitions="3*, 3*, 3*, 6*">
+                                            <Label Grid.Column="0" HeightRequest="48" MinimumHeightRequest="48" Margin="4,4,4,4"
+                                                   Text="{Binding STEELNAME}" Style="{StaticResource labelTableStyle}" />
+                                            <Label Grid.Column="1" HeightRequest="48" MinimumHeightRequest="48" Margin="4,4,4,4" MaxLines="2" LineBreakMode="TailTruncation"
+                                                   Text="{Binding ANALOG}" Style="{DynamicResource labelTableStyle}" />
+                                            <Label Grid.Column="2" HeightRequest="48" MinimumHeightRequest="48" Margin="4,4,4,4" MaxLines="2" LineBreakMode="TailTruncation"
+                                                   Text="{Binding STEELCLASS}" Style="{DynamicResource labelTableStyle}" />
+                                            <Label Grid.Column="3" HeightRequest="48" MinimumHeightRequest="48" Margin="4,4,4,4" MaxLines="2" LineBreakMode="TailTruncation"
+                                                   Text="{Binding NOTE}" Style="{DynamicResource labelTableStyle}" />
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout Padding="12" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+            <ActivityIndicator x:Name="indicator" IsVisible="{Binding Source={x:Reference steelCatalogPage}, Path=IsBusy}"
+                               IsRunning="{Binding Source={x:Reference steelCatalogPage}, Path=IsBusy}" Color="DarkOrange" HeightRequest="48" WidthRequest="48" BackgroundColor="Transparent" />
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>
