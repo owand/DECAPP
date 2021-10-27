@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="34742AndreyOvcharenko.DrillingeCatalog" Publisher="CN=OWAND" Version="21.9.446.0" />
-  <mp:PhoneIdentity PhoneProductId="0251028d-5f82-419b-8f00-51f9c5206c1f" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="34742AndreyOvcharenko.DrillingeCatalog" Publisher="CN=1A88FC79-93F9-4E7D-BA4F-0D4691D1340C" Version="21.9.446.0" />
+  <mp:PhoneIdentity PhoneProductId="67169435-039b-4123-91d5-6c846b75bb84" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Drilling eCatalog</DisplayName>
     <PublisherDisplayName>Andrey Ovcharenko</PublisherDisplayName>
