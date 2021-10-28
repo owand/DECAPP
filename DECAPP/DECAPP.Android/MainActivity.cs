@@ -21,12 +21,6 @@ namespace DECAPP.Droid
             Xamarin.Essentials.Platform.Init(this, bundle);
             Xamarin.Forms.Forms.Init(this, bundle);
 
-            //use GlideX in my Xamarin.Forms
-            //Force the custom renderers to get loaded
-            //Android.Glide.Forms.Init(this, debug: true);
-            // Or use this one instead to try IGlideHandler
-            // Android.Glide.Forms.Init (this, handler: new RandomAlphaHandler (), debug: true);
-
             LoadApplication(new App());
 
             // Подключение приложения к личному account Microsoft, используя Microsoft Graph API
