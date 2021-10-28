@@ -4,13 +4,12 @@
        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        mc:Ignorable="d"
-       xmlns:contents="clr-namespace:DECAPP.Views"
        xmlns:resources="clr-namespace:DECAPP.Resources"
        xmlns:settings="clr-namespace:DECAPP.Views.Settings"
        FlyoutHeaderBehavior="CollapseOnScroll"
        FlyoutBackgroundColor="#2D353E"
        BackgroundColor="#2D353E"
-       x:Class="DECAPP.Views.AppShell">
+       x:Class="DECAPP.Views.Settings.AppShell">
 
 
 

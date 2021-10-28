@@ -1,6 +1,6 @@
 using DECAPP.Models;
 using DECAPP.Resources;
-using DECAPP.Views;
+using DECAPP.Views.Settings;
 using SQLite;
 using System;
 using System.Globalization;
