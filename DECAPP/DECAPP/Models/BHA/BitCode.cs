@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace DECAPP.Models.BHA
 {
-    public class BitCodeViewModel : ViewModelBase
+    public class BitCode : ViewModelBase
     {
         private static readonly object collisionLock = new object(); //Заглушка для блокирования одновременных операций с бд, если к базе данных может обращаться сразу несколько потоков
 
@@ -112,7 +112,7 @@ namespace DECAPP.Models.BHA
         }
 
 
-        public BitCodeViewModel()
+        public BitCode()
         {
             // If the table is empty, initialize the collection
             if (!App.Database.Table<BitCodeModel>().Any())

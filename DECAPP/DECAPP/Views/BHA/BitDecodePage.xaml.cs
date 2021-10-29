@@ -9,7 +9,7 @@ namespace DECAPP.Views.BHA
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BitDecodePage : ContentPage
     {
-        private BitDecodeViewModel viewModel = null;
+        private BitDecode viewModel = null;
         private BitTypeListViewModel typeListViewModel = null;
 
         private int BitType;
@@ -33,7 +33,7 @@ namespace DECAPP.Views.BHA
             {
                 IsBusy = true; ;  // Затеняем задний фон и запускаем ProgressRing
 
-                BindingContext = viewModel = viewModel ?? new BitDecodeViewModel(BitType);
+                BindingContext = viewModel = viewModel ?? new BitDecode(BitType);
 
                 picTYPENAME.BindingContext = typeListViewModel = typeListViewModel ?? new BitTypeListViewModel();
 
@@ -77,7 +77,7 @@ namespace DECAPP.Views.BHA
                 BitType = typeListViewModel.TypePickerList[picTYPENAME.SelectedIndex].TYPEID;
 
                 viewModel = null;
-                viewModel = new BitDecodeViewModel(BitType);
+                viewModel = new BitDecode(BitType);
                 BindingContext = viewModel;
             }
             catch (Exception ex)
@@ -120,7 +120,7 @@ namespace DECAPP.Views.BHA
             catch (Exception)
             {
                 viewModel = null;
-                viewModel = new BitDecodeViewModel(BitType);
+                viewModel = new BitDecode(BitType);
                 BindingContext = viewModel;
             }
         }

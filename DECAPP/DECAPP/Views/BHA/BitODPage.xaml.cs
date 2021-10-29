@@ -11,7 +11,7 @@ namespace DECAPP.Views.BHA
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BitODPage : ContentPage
     {
-        private BitODViewModel viewModel;
+        private BitOD viewModel;
 
         public BitODPage()
         {
@@ -27,7 +27,7 @@ namespace DECAPP.Views.BHA
             {
                 IsBusy = true; ;  // Затеняем задний фон и запускаем ProgressRing
 
-                BindingContext = viewModel = viewModel ?? new BitODViewModel();
+                BindingContext = viewModel = viewModel ?? new BitOD();
 
                 await RefreshListView();
 

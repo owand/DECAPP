@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DECAPP.Models.BHA
 {
-    public class BitDecodeViewModel : ViewModelBase
+    public class BitDecode : ViewModelBase
     {
 
 
@@ -13,7 +13,7 @@ namespace DECAPP.Models.BHA
         public List<BitCodeModel> Code3SymbolList { get; set; }
         public List<BitCodeModel> Code4SymbolList { get; set; }
 
-        public BitDecodeViewModel(int Id)
+        public BitDecode(int Id)
         {
             Code1SymbolList = new List<BitCodeModel>(App.Database.Table<BitCodeModel>().Where(c => c.TYPEID == Id && c.SERIAL == 1 && c.LANGUAGE == App.AppLanguage).ToList());
             Code2SymbolList = new List<BitCodeModel>(App.Database.Table<BitCodeModel>().Where(c => c.TYPEID == Id && c.SERIAL == 2 && c.LANGUAGE == App.AppLanguage).ToList());

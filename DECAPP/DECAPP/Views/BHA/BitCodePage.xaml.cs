@@ -11,7 +11,7 @@ namespace DECAPP.Views.BHA
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BitCodePage : ContentPage
     {
-        private BitCodeViewModel viewModel;
+        private BitCode viewModel;
 
         public BitCodePage()
         {
@@ -29,7 +29,7 @@ namespace DECAPP.Views.BHA
             {
                 IsBusy = true; ;  // Затеняем задний фон и запускаем ProgressRing
 
-                BindingContext = viewModel = viewModel ?? new BitCodeViewModel();
+                BindingContext = viewModel = viewModel ?? new BitCode();
 
                 await RefreshListView();
 

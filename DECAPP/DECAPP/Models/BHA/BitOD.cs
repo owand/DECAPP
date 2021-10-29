@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace DECAPP.Models.BHA
 {
-    public class BitODViewModel : ViewModelBase
+    public class BitOD : ViewModelBase
     {
         private static readonly object collisionLock = new object(); //Заглушка для блокирования одновременных операций с бд, если к базе данных может обращаться сразу несколько потоков
 
@@ -68,7 +68,7 @@ namespace DECAPP.Models.BHA
             }
         }
 
-        public BitODViewModel()
+        public BitOD()
         {
             // If the table is empty, initialize the collection
             if (!App.Database.Table<BitODModel>().Any())
