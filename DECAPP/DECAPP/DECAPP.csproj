@@ -10,7 +10,6 @@
     <ProduceAssemblyReference>true</ProduceAssemblyReference>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageProjectUrl>https://sites.google.com/view/owand/drilling-ecatalog</PackageProjectUrl>
-    <Configurations>Debug</Configurations>
     <DebugType>portable</DebugType>
   </PropertyGroup>
   
