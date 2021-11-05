@@ -7,9 +7,11 @@
     <Description>Catalog of materials and equipment for drilling and fixing oil and gas wells.</Description>
     <Company>Andrey Ovcharenko</Company>
     <Copyright>Andrey Ovcharenko</Copyright>
-    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-    <PackageProjectUrl>https://sites.google.com/view/owand/drilling-ecatalog</PackageProjectUrl>
+    <ProduceAssemblyReference>true</ProduceAssemblyReference>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageProjectUrl>https://sites.google.com/view/owand/drilling-ecatalog</PackageProjectUrl>
+    <Configurations>Debug</Configurations>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
