@@ -16,7 +16,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
-	<Optimize>True</Optimize>
+	  <Optimize>True</Optimize>
   </PropertyGroup>
   
   <ItemGroup>
