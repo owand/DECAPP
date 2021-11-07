@@ -6,6 +6,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -113,17 +114,17 @@ namespace DECAPP
                 Device.BeginInvokeOnMainThread(async () => { await Settings.ProVersionCheck(); });
             }
 
-            MainPage = new AppShell();
+            //MainPage = new AppShell();
         }
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
             // Handle when your app starts
             try
             {
                 if (!File.Exists(Constants.DatabasePath))
                 {
-                    CopyDBifNotExists();
+                    await CopyDBifNotExists();
                 }
                 else if (GetCurrentDBVersion() < Constants.dbVersion)
                 {
@@ -132,13 +133,14 @@ namespace DECAPP
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
 
-                    CopyDBifNotExists();
-                    Application.Current.MainPage.DisplayAlert("Congratulations! ", " The database has been updated!", AppResource.messageOk); // Что-то пошло не так
+                    await CopyDBifNotExists();
+                    await Application.Current.MainPage.DisplayAlert("Congratulations! ", " The database has been updated!", AppResource.messageOk); // Что-то пошло не так
                 }
+                this.MainPage = new AppShell();
             }
             catch (Exception ex)
             {
-                Application.Current.MainPage.DisplayAlert(AppResource.messageError, ex.Message, AppResource.messageOk); // Что-то пошло не так
+                await Application.Current.MainPage.DisplayAlert(AppResource.messageError, ex.Message, AppResource.messageOk); // Что-то пошло не так
             }
         }
 
@@ -153,14 +155,14 @@ namespace DECAPP
         }
 
 
-        public void CopyDBifNotExists()
+        public async Task CopyDBifNotExists()
         {
             try
             {
                 Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{GetType().Namespace}.{Constants.dbName}");
                 if (stream == null)
                 {
-                    Current.MainPage.DisplayAlert(AppResource.messageError, "The resource " + Constants.dbName + " was not loaded properly.", AppResource.messageOk); // Что-то пошло не так
+                    await Current.MainPage.DisplayAlert(AppResource.messageError, "The resource " + Constants.dbName + " was not loaded properly.", AppResource.messageOk); // Что-то пошло не так
                     System.Diagnostics.Process.GetCurrentProcess().CloseMainWindow();
                     return;
                 }
@@ -195,7 +197,7 @@ namespace DECAPP
             }
             catch (Exception ex)
             {
-                Application.Current.MainPage.DisplayAlert(AppResource.messageError, ex.Message, AppResource.messageOk); // Что-то пошло не так
+                await Application.Current.MainPage.DisplayAlert(AppResource.messageError, ex.Message, AppResource.messageOk); // Что-то пошло не так
                 return;
             }
         }
