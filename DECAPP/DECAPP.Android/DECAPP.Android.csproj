@@ -42,7 +42,7 @@
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a</AndroidSupportedAbis>
     <AndroidTlsProvider>btls</AndroidTlsProvider>
-    <AndroidEnableSGenConcurrent>false</AndroidEnableSGenConcurrent>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
     <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
@@ -55,7 +55,6 @@
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidUseApkSigner>False</AndroidUseApkSigner>
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
-    <AndroidPackageFormat>apk</AndroidPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>

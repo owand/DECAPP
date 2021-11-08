@@ -117,7 +117,7 @@ namespace DECAPP
             //MainPage = new AppShell();
         }
 
-        protected async override void OnStart()
+        protected override async void OnStart()
         {
             // Handle when your app starts
             try
@@ -136,7 +136,7 @@ namespace DECAPP
                     await CopyDBifNotExists();
                     await Application.Current.MainPage.DisplayAlert("Congratulations! ", " The database has been updated!", AppResource.messageOk); // Что-то пошло не так
                 }
-                this.MainPage = new AppShell();
+                MainPage = new AppShell();
             }
             catch (Exception ex)
             {
