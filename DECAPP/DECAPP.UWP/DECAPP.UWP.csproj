@@ -22,7 +22,7 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxPackageDir>D:\myApps\Store\</AppxPackageDir>
     <AppxBundle>Always</AppxBundle>
-    <PackageCertificateThumbprint>924951871D17FD1C6A3A0CA7ABB28716C8640975</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>6E204A7E98337E56DAF05F6C287129A28CB4D3F0</PackageCertificateThumbprint>
     <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
@@ -31,6 +31,7 @@
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
