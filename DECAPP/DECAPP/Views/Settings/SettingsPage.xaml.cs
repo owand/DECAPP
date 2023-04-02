@@ -1,6 +1,7 @@
 ﻿using DECAPP.Resources;
 using DECAPP.Services;
 using Microsoft.Graph;
+using Microsoft.Graph.Models;
 using System;
 using System.IO;
 using Xamarin.Essentials;
